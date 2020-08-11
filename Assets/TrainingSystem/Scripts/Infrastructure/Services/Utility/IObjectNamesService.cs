@@ -1,4 +1,4 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
+﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Utility
 {

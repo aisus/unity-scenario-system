@@ -1,4 +1,4 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
+﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Interaction;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction

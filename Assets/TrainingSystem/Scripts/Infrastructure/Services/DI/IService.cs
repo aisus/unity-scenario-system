@@ -1,4 +1,4 @@
-﻿namespace TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator
+﻿namespace TrainingSystem.Scripts.Infrastructure.Services.DI
 {
     /// <summary>
     /// Basic globally-available service class

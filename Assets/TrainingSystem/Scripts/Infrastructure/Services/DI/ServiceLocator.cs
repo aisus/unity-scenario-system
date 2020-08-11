@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator
+namespace TrainingSystem.Scripts.Infrastructure.Services.DI
 {
     /// <summary>
     /// Simple global dependency resolver

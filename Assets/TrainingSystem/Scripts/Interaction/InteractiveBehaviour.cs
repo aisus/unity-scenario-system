@@ -2,8 +2,8 @@
 using TrainingSystem.Scripts.Enums;
 using TrainingSystem.Scripts.Infrastructure;
 using TrainingSystem.Scripts.Infrastructure.Services;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
-using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
 using TrainingSystem.Scripts.Model;
 using UnityEngine;
 
