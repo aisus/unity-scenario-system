@@ -36,7 +36,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         {
             Debug.Log($"ACTION! {behaviour.Entity.Key}");
             if (behaviour.Entity.State != InteractiveObjectState.Disabled)
-                behaviour.VisualizeAction();
+                behaviour.UpdateState();
         }
     }
 }

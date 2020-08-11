@@ -8,11 +8,16 @@
         /// <summary>
         /// Saves object state (e.g. switch on-off)
         /// </summary>
-        KeepState,
+        Switch,
         
         /// <summary>
-        /// Activate once (e.g. button)
+        /// Activate and reset to inactive (e.g. button)
         /// </summary>
-        PressOnce
+        Button,
+        
+        /// <summary>
+        /// Activate once and disable (e.g. cut the wire)
+        /// </summary>
+        UseOnce
     }
 }

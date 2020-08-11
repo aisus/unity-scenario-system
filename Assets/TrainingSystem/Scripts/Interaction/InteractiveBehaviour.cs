@@ -80,22 +80,37 @@ namespace TrainingSystem.Scripts.Interaction
         }
 
         /// <summary>
-        /// Visualise action - play animations, sounds, etc.
+        /// Update state and visualize action
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void VisualizeAction()
+        public void UpdateState()
         {
             switch (_entity.State)
             {
                 case InteractiveObjectState.Disabled:
                     break;
                 case InteractiveObjectState.Inactive:
+                    // UseOnce disables itself when activated
+                    if (Entity.Type == InteractiveObjectType.UseOnce)
+                    {
+                        _entity.State = InteractiveObjectState.Disabled;
+                        Select(false);
+                    }
+                    // Button changes to active state when activated
+                    // Switch changes to active state when activated
+                    else
+                    {
+                        _entity.State = InteractiveObjectState.Active;
+                    }
+
                     _animator.SetTrigger(ActivatePropIndex);
-                    if (Entity.Type == InteractiveObjectType.KeepState) _entity.State = InteractiveObjectState.Active;
                     break;
                 case InteractiveObjectState.Active:
+                    // Switch changes to inactive state when deactivated
+                    if (Entity.Type == InteractiveObjectType.Switch) _entity.State = InteractiveObjectState.Inactive;
+                    // Button can't be deactivated
+                    // UseOnce can't be deactivated
                     _animator.SetTrigger(DeactivatePropIndex);
-                    if (Entity.Type == InteractiveObjectType.KeepState) _entity.State = InteractiveObjectState.Inactive;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
