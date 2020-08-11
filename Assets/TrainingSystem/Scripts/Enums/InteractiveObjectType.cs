@@ -1,25 +1,18 @@
 ﻿namespace TrainingSystem.Scripts.Enums
 {
     /// <summary>
-    /// Possible interactive object states
+    /// Type of an interactive object
     /// </summary>
-    public enum InteractiveObjectState
+    public enum InteractiveObjectType
     {
         /// <summary>
-        /// Object is disabled - no action can be performed
+        /// Saves object state (e.g. switch on-off)
         /// </summary>
-        Disabled, 
+        KeepState,
         
         /// <summary>
-        /// Object is inactive - action can be performed
-        /// (e.g. switched off button)
+        /// Activate once (e.g. button)
         /// </summary>
-        Inactive, 
-        
-        /// <summary>
-        /// Object is active - performing an action will return in to Inactive state
-        /// (e.g. switched on button)
-        /// </summary>
-        Active
+        PressOnce
     }
 }

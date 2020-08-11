@@ -8,6 +8,6 @@
         /// <summary>
         /// Final operations before scene exit
         /// </summary>
-        void ResetOnSceneExit();
+        void OnSceneExit();
     }
 }

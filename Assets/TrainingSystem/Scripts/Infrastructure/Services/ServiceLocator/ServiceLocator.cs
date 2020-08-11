@@ -66,7 +66,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator
         public void FinalizeSceneServices()
         {
             var sceneServices = _registeredServices.Where(x => x.Value is ISceneService).ToList();
-            sceneServices.ForEach(x => (x.Value as ISceneService)?.ResetOnSceneExit());
+            sceneServices.ForEach(x => (x.Value as ISceneService)?.OnSceneExit());
             _registeredServices = _registeredServices.Where(x => !(x.Value is ISceneService))
                 .ToDictionary(x => x.Key, x => x.Value);
         }

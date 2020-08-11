@@ -2,7 +2,7 @@
 using TrainingSystem.Scripts.Enums;
 using TrainingSystem.Scripts.Infrastructure;
 using TrainingSystem.Scripts.Infrastructure.Services;
-using TrainingSystem.Scripts.Infrastructure.Services.Interfaces;
+using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
 using TrainingSystem.Scripts.Model;
 using UnityEngine;
@@ -18,10 +18,11 @@ namespace TrainingSystem.Scripts.Interaction
         /// Entity with interactive object's data
         /// </summary>
         public InteractiveObjectEntity Entity => _entity;
+
         public Action<InteractiveBehaviour> OnSelected { get; set; }
         public Action<InteractiveBehaviour> OnDeselected { get; set; }
         public Action<InteractiveBehaviour> OnActionPerformed { get; set; }
-        
+
         [SerializeField] private InteractiveObjectEntity _entity;
 
         [Header("Materials")] [SerializeField] private Material _outlineMaterial;
@@ -29,7 +30,7 @@ namespace TrainingSystem.Scripts.Interaction
         private Renderer _renderer;
         private Material _materialBackup;
         private Animator _animator;
-        
+
         private static readonly int ActivatePropIndex = Animator.StringToHash("Activate");
         private static readonly int DeactivatePropIndex = Animator.StringToHash("Deactivate");
 
@@ -57,6 +58,7 @@ namespace TrainingSystem.Scripts.Interaction
         {
             if (param)
             {
+                if (Entity.State == InteractiveObjectState.Disabled) return;
                 _materialBackup = _renderer.material;
                 _renderer.material = _outlineMaterial;
                 _renderer.material.mainTexture = _materialBackup.mainTexture;
@@ -89,11 +91,11 @@ namespace TrainingSystem.Scripts.Interaction
                     break;
                 case InteractiveObjectState.Inactive:
                     _animator.SetTrigger(ActivatePropIndex);
-                    _entity.State = InteractiveObjectState.Active;
+                    if (Entity.Type == InteractiveObjectType.KeepState) _entity.State = InteractiveObjectState.Active;
                     break;
                 case InteractiveObjectState.Active:
                     _animator.SetTrigger(DeactivatePropIndex);
-                    _entity.State = InteractiveObjectState.Inactive;
+                    if (Entity.Type == InteractiveObjectType.KeepState) _entity.State = InteractiveObjectState.Inactive;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

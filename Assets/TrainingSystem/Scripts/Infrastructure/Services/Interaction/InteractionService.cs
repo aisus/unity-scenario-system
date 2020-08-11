@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TrainingSystem.Scripts.Enums;
-using TrainingSystem.Scripts.Infrastructure.Services.Interfaces;
 using TrainingSystem.Scripts.Interaction;
 using UnityEngine;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.Impl
+namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 {
     /// <inheritdoc />
     public class InteractionService : IInteractionService
@@ -18,7 +16,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Impl
         }
 
         /// <inheritdoc />
-        public void ResetOnSceneExit()
+        public void OnSceneExit()
         {
             _interactiveEntities = new List<InteractiveBehaviour>();
         }

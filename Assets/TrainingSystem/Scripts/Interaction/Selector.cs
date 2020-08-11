@@ -1,8 +1,10 @@
 ﻿using System;
+using TrainingSystem.Scripts.Enums;
 using TrainingSystem.Scripts.Infrastructure;
 using TrainingSystem.Scripts.Infrastructure.Services;
-using TrainingSystem.Scripts.Infrastructure.Services.Interfaces;
+using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
+using TrainingSystem.Scripts.Infrastructure.Services.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,7 @@ namespace TrainingSystem.Scripts.Interaction
         [SerializeField] private Text _text;
 
         private IInteractionService _interactionService;
+        private IObjectNamesService _objectNamesService;
         private InteractiveBehaviour _currentSelected;
 
         #region EVENT_FUNCTIONS
@@ -24,6 +27,7 @@ namespace TrainingSystem.Scripts.Interaction
         private void Start()
         {
             _interactionService = ServiceLocator.Current.ResolveDependency<IInteractionService>();
+            _objectNamesService = ServiceLocator.Current.ResolveDependency<IObjectNamesService>();
         }
 
         private void Update()
@@ -33,7 +37,7 @@ namespace TrainingSystem.Scripts.Interaction
             _text.gameObject.SetActive(_currentSelected);
             if (_currentSelected)
             {
-                _text.text = _currentSelected.Entity.Key;
+                _text.text = _objectNamesService.GetNameByKey(_currentSelected.Entity.Key);
             }
         }
 
@@ -50,12 +54,12 @@ namespace TrainingSystem.Scripts.Interaction
                 return;
             }
 
-            var foundEntity = hit.transform.GetComponent<InteractiveBehaviour>();
-            if (foundEntity)
+            var foundObject = hit.transform.GetComponent<InteractiveBehaviour>();
+            if (foundObject)
             {
-                if (foundEntity == _currentSelected) return;
+                if (foundObject == _currentSelected) return;
                 if (_currentSelected) _currentSelected.Select(false);
-                _currentSelected = foundEntity;
+                _currentSelected = foundObject;
                 _currentSelected.Select(true);
             }
             else

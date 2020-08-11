@@ -29,13 +29,27 @@ namespace TrainingSystem.Scripts.Model
         }
 
         /// <summary>
-        /// Current state
+        /// Object type
         /// </summary>
-        [SerializeField] private InteractiveObjectState _state;
-        
+        public InteractiveObjectType Type
+        {
+            get => _type;
+            set => _type = value;
+        }
+
         /// <summary>
         /// String key of an object
         /// </summary>
         [SerializeField] private string _key;
+
+        /// <summary>
+        /// Object type
+        /// </summary>
+        [SerializeField] private InteractiveObjectType _type;
+
+        /// <summary>
+        /// Current state
+        /// </summary>
+        [SerializeField] private InteractiveObjectState _state;
     }
 }

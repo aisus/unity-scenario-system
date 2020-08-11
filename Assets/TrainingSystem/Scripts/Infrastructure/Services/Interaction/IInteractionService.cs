@@ -1,7 +1,7 @@
 ﻿using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
 using TrainingSystem.Scripts.Interaction;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.Interfaces
+namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 {
     /// <summary>
     /// Service to keep track of interactive objects and provide interaction events
