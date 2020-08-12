@@ -6,7 +6,7 @@ namespace TrainingSystem.Scripts.Configuration
     /// <summary>
     /// Mapping of object string keys to displayed names
     /// </summary>
-    [CreateAssetMenu(fileName = "New DisplayedObjectNames", menuName = "Displayed Object Names", order = 0)]
+    [CreateAssetMenu(fileName = "New DisplayedObjectNames", menuName = "Displayed Object Names", order = 1)]
     public class DisplayedObjectNames : ScriptableObject
     {
         [Serializable]

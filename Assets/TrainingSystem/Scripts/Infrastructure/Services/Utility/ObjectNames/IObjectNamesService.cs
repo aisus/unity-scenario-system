@@ -1,6 +1,6 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
+﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.Utility
+namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames
 {
     /// <summary>
     /// Service to map system object keys to displayed names

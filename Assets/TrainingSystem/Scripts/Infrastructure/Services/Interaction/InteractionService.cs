@@ -1,30 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TrainingSystem.Scripts.Enums;
-using TrainingSystem.Scripts.Interaction;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
+using TrainingSystem.Scripts.Infrastructure.Services.Scenarios;
+using TrainingSystem.Scripts.Model;
+using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
+using ILogger = TrainingSystem.Scripts.Infrastructure.Services.Utility.Logging.ILogger;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 {
     /// <inheritdoc />
     public class InteractionService : IInteractionService
     {
-        private List<InteractiveBehaviour> _interactiveEntities;
+        public Action<InteractiveObjectEntity> OnActionPerformed { get; set; }
+        public Action<InteractiveObjectEntity> OnActionFailed { get; set; }
+        public Action<InteractiveObjectEntity> OnActionSucceed { get; set; }
+        public Action OnScenarioCompleted { get; set; }
+
+        private readonly List<InteractiveBehaviour> _interactiveObjects;
+        private readonly IScenarioService _scenarioService;
+        private readonly ILogger _logger;
 
         public InteractionService()
         {
-            _interactiveEntities = new List<InteractiveBehaviour>();
-        }
-
-        /// <inheritdoc />
-        public void OnSceneExit()
-        {
-            _interactiveEntities = new List<InteractiveBehaviour>();
+            _interactiveObjects = new List<InteractiveBehaviour>();
+            _scenarioService = ServiceLocator.Current.ResolveDependency<IScenarioService>();
+            _logger = ServiceLocator.Current.ResolveDependency<ILogger>();
         }
 
         /// <inheritdoc />
         public void AddInteractiveEntity(InteractiveBehaviour behaviour)
         {
-            _interactiveEntities.Add(behaviour);
+            _interactiveObjects.Add(behaviour);
             behaviour.OnActionPerformed += ActionPerformedHandler;
         }
 
@@ -34,9 +42,40 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         /// <param name="behaviour"></param>
         private void ActionPerformedHandler(InteractiveBehaviour behaviour)
         {
-            Debug.Log($"ACTION! {behaviour.Entity.Key}");
+            _logger.Log($"ACTION {behaviour.Entity.Key}", LogType.Log);
+
             if (behaviour.Entity.State != InteractiveObjectState.Disabled)
                 behaviour.UpdateState();
+
+            if (_scenarioService.IsScenarioCompleted()) return;
+
+            OnActionPerformed?.Invoke(behaviour.Entity);
+            var result = _scenarioService.TryExecuteScenarioAction(behaviour.Entity);
+
+            _logger.Log($"Result: {result}", LogType.Log);
+
+            switch (result)
+            {
+                case ScenarioActionResult.ActionNotAllowed:
+                case ScenarioActionResult.ConditionsNotMatch:
+                    OnActionFailed?.Invoke(behaviour.Entity);
+                    break;
+                case ScenarioActionResult.Ok:
+                case ScenarioActionResult.OkAndNextStage:
+                    OnActionSucceed?.Invoke(behaviour.Entity);
+                    break;
+                case ScenarioActionResult.ScenarioCompleted:
+                    _logger.Log("Scenario completed!", LogType.Log);
+                    OnScenarioCompleted?.Invoke();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        /// <inheritdoc />
+        public void OnSceneExit()
+        {
         }
     }
 }

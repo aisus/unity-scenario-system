@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator
+namespace TrainingSystem.Scripts.Infrastructure.Services.DI
 {
     /// <summary>
     /// Simple global dependency resolver
@@ -18,6 +18,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator
         private ServiceLocator()
         {
             _registeredServices = new Dictionary<Type, IService>();
+            GlobalServiceInitializer.RegisterGlobalServices(this);
         }
 
         /// <summary>

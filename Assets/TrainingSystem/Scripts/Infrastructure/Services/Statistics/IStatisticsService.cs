@@ -1,4 +1,5 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
+﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
+using TrainingSystem.Scripts.Model;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Statistics
 {
@@ -7,6 +8,6 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Statistics
     /// </summary>
     public interface IStatisticsService : IService
     {
-        
+        StatisticsEntity Statistics { get; }
     }
 }

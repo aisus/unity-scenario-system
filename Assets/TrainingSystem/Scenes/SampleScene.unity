@@ -192,7 +192,6 @@ MonoBehaviour:
     _key: SwitchCover
     _type: 0
     _state: 1
-  _outlineMaterial: {fileID: 2100000, guid: adf1790e27ea5604da0ee39769e8ceb6, type: 2}
 --- !u!65 &88723690
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -393,29 +392,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415959296}
   m_CullTransparentMesh: 0
---- !u!1 &534141617 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100002, guid: 5e9e851c0e142814dac026a256ba2ac0,
+--- !u!114 &534141622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 534141622, guid: 5e9e851c0e142814dac026a256ba2ac0,
     type: 3}
   m_PrefabInstance: {fileID: 587327507}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &534141622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534141617}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03c4c810cb8d4421afa68a6f49b18f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSelectionDistance: 5
-  _interactionLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _text: {fileID: 1311464931}
 --- !u!1001 &587327507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -469,34 +457,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_ClearFlags
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.11320752
-      objectReference: {fileID: 0}
-    - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.11320752
-      objectReference: {fileID: 0}
-    - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.11320752
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_HeadBob.VerticalBobRange
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_HeadBob.HorizontalBobRange
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_UseHeadBob
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -731,8 +691,9 @@ GameObject:
   - component: {fileID: 876816710}
   - component: {fileID: 876816709}
   - component: {fileID: 876816711}
+  - component: {fileID: 876816712}
   m_Layer: 0
-  m_Name: ServiceInitializer
+  m_Name: SCENE_SERVICES
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -778,6 +739,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayedObjectNames: {fileID: 11400000, guid: 2341fc7d37c248c44a9c0f18b46b7528,
     type: 2}
+--- !u!114 &876816712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876816708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88144dd673624c7b90b15cfdc5487259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scenario: {fileID: 11400000, guid: ecb965d2209028d4c9353e7a10c245d3, type: 2}
 --- !u!1 &952663846
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +897,6 @@ MonoBehaviour:
     _key: Switch
     _type: 1
     _state: 1
-  _outlineMaterial: {fileID: 2100000, guid: adf1790e27ea5604da0ee39769e8ceb6, type: 2}
 --- !u!65 &1213366541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1192,7 +1165,6 @@ MonoBehaviour:
     _key: AlarmButton
     _type: 1
     _state: 1
-  _outlineMaterial: {fileID: 2100000, guid: adf1790e27ea5604da0ee39769e8ceb6, type: 2}
 --- !u!95 &1460236343
 Animator:
   serializedVersion: 3
@@ -1225,13 +1197,28 @@ GameObject:
   - component: {fileID: 2127348832}
   - component: {fileID: 2127348831}
   - component: {fileID: 2127348830}
+  - component: {fileID: 2127348829}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2127348829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127348828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8665e16d83924218b8b7368367543db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selector: {fileID: 534141622}
+  _text: {fileID: 1311464931}
 --- !u!222 &2127348830
 CanvasRenderer:
   m_ObjectHideFlags: 0

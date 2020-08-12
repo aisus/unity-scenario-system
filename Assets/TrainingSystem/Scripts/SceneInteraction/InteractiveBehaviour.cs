@@ -1,13 +1,11 @@
 ﻿using System;
 using TrainingSystem.Scripts.Enums;
-using TrainingSystem.Scripts.Infrastructure;
-using TrainingSystem.Scripts.Infrastructure.Services;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
-using TrainingSystem.Scripts.Infrastructure.Services.ServiceLocator;
 using TrainingSystem.Scripts.Model;
 using UnityEngine;
 
-namespace TrainingSystem.Scripts.Interaction
+namespace TrainingSystem.Scripts.SceneInteraction
 {
     /// <summary>
     /// Interactive object's Behaviour component
@@ -24,8 +22,6 @@ namespace TrainingSystem.Scripts.Interaction
         public Action<InteractiveBehaviour> OnActionPerformed { get; set; }
 
         [SerializeField] private InteractiveObjectEntity _entity;
-
-        [Header("Materials")] [SerializeField] private Material _outlineMaterial;
 
         private Renderer _renderer;
         private Material _materialBackup;
@@ -54,14 +50,18 @@ namespace TrainingSystem.Scripts.Interaction
         /// Select interactive entity (when looking at it or pointing with mouse)
         /// </summary>
         /// <param name="param"></param>
-        public void Select(bool param)
+        public void Select(bool param, Material outlineMaterial = null)
         {
             if (param)
             {
                 if (Entity.State == InteractiveObjectState.Disabled) return;
-                _materialBackup = _renderer.material;
-                _renderer.material = _outlineMaterial;
-                _renderer.material.mainTexture = _materialBackup.mainTexture;
+                if (outlineMaterial)
+                {
+                    _materialBackup = _renderer.material;
+                    _renderer.material = outlineMaterial;
+                    _renderer.material.mainTexture = _materialBackup.mainTexture;
+                }
+
                 OnSelected?.Invoke(this);
             }
             else
