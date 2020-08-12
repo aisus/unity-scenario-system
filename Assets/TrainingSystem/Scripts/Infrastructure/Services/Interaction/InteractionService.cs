@@ -6,7 +6,7 @@ using TrainingSystem.Scripts.Infrastructure.Services.Scenarios;
 using TrainingSystem.Scripts.Model;
 using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
-using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logging.Logger;
+using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logger;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 {
@@ -62,6 +62,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
                     break;
                 case ScenarioActionResult.ScenarioCompleted:
                     Logger.Log("Scenario completed!", LogType.Log);
+                    OnActionSucceed?.Invoke(behaviour.Entity);
                     OnScenarioCompleted?.Invoke();
                     break;
                 default:

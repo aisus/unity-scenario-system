@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TrainingSystem.Scripts.Infrastructure.Utility.Logging
+namespace TrainingSystem.Scripts.Infrastructure.Utility
 {
     public static class Logger
     {

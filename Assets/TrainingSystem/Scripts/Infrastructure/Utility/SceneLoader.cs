@@ -1,18 +1,18 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Preferences;
+﻿using TrainingSystem.Scripts.Configuration;
 using UnityEngine.SceneManagement;
 
-namespace TrainingSystem.Scripts.Infrastructure.Utility.SceneManagement
+namespace TrainingSystem.Scripts.Infrastructure.Utility
 {
     public static class SceneLoader
     {
         public static void LoadMainMenu()
         {
-            SceneManager.LoadScene(GlobalPreferences.MainMenuSceneName);
+            SceneManager.LoadScene(TrainingPreferences.MainMenuSceneName);
         }
 
         public static void LoadTrainingScene()
         {
-            SceneManager.LoadScene(GlobalPreferences.TrainingSceneName);
+            SceneManager.LoadScene(TrainingPreferences.TrainingSceneName);
         }
 
         public static void ReloadCurrentScene()

@@ -4,7 +4,7 @@ using TrainingSystem.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TrainingSystem.Scripts.UI
+namespace TrainingSystem.Scripts.UI.Scene
 {
     public class ResultsScreenController : MonoBehaviour
     {
@@ -24,10 +24,19 @@ namespace TrainingSystem.Scripts.UI
         public void DisplayResults(StatisticsEntity entity)
         {
             var sb = new StringBuilder();
+            
             sb.Append($"Сценарий выполнен {(entity.IsSuccessful ? "успешно" : "с ошибками")}\n");
-            sb.Append($"{entity.TotalActionsCount} действий, {entity.FailedActionsCount} ошибочных\n");
+            
+            var actionsWord = entity.TotalActionsCount == 1 ? "действие" : "действий";
+            var errorWord = entity.FailedActionsCount == 1 ? "ошибочное" : "ошибочных";
+            sb.Append($"{entity.TotalActionsCount} {actionsWord}, {entity.FailedActionsCount} {errorWord}\n");
+            
             sb.Append($"Верных действий: {Mathf.CeilToInt(entity.SuccessRate * 100)}%\n");
-            sb.Append($"Время выполнения: {Mathf.FloorToInt(entity.TimeInSeconds / 60)} минут {Mathf.FloorToInt(entity.TimeInSeconds % 60)} секунд");
+            
+            var minutes = Mathf.FloorToInt(entity.TimeInSeconds / 60);
+            var seconds = Mathf.FloorToInt(entity.TimeInSeconds % 60);
+            sb.Append($"Время выполнения: {minutes} мин. {seconds} сек.");
+            
             _resultsText.text = sb.ToString();
         }
     }

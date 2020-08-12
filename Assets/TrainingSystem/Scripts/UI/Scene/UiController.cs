@@ -1,15 +1,16 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Preferences;
+﻿using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.Statistics;
-using TrainingSystem.Scripts.Infrastructure.Utility.SceneManagement;
+using TrainingSystem.Scripts.Infrastructure.Utility;
 using TrainingSystem.Scripts.Model;
 using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
 using UnityEngine.UI;
-using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logging.Logger;
+using UnityStandardAssets.Characters.FirstPerson;
+using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logger;
 
-namespace TrainingSystem.Scripts.UI
+namespace TrainingSystem.Scripts.UI.Scene
 {
     public class UiController : MonoBehaviour
     {
@@ -22,6 +23,8 @@ namespace TrainingSystem.Scripts.UI
         private IStatisticsService _statisticsService;
         private IInteractionService _interactionService;
 
+        private MouseLook _mouseLook;
+
         private void Start()
         {
             _statisticsService = ServiceLocator.Current.ResolveDependency<IStatisticsService>();
@@ -31,10 +34,12 @@ namespace TrainingSystem.Scripts.UI
             _interactionService.OnActionFailed += ActionFailedHandler;
 
             _failureScreen.OnExitPressed += SceneLoader.LoadMainMenu;
-            _failureScreen.OnContinuePressed += () => _failureScreen.gameObject.SetActive(false);
+            _failureScreen.OnContinuePressed += () => ShowFirstFailureScreen(false);
             _failureScreen.OnRestartPressed += SceneLoader.ReloadCurrentScene;
             _resultsScreen.OnExitPressed += SceneLoader.LoadMainMenu;
-            _failureScreen.OnRestartPressed += SceneLoader.ReloadCurrentScene;
+            _resultsScreen.OnRestartPressed += SceneLoader.ReloadCurrentScene;
+
+            _mouseLook = FindObjectOfType<FirstPersonController>().MouseLook;
         }
 
         private void Update()
@@ -44,7 +49,7 @@ namespace TrainingSystem.Scripts.UI
             if (currentSelectedObject)
             {
                 _objectNameText.text =
-                    GlobalPreferences.DisplayedObjectNames.GetNameByKey(currentSelectedObject.Entity.Key);
+                    TrainingPreferences.DisplayedObjectNames.GetNameByKey(currentSelectedObject.Entity.Key);
             }
         }
 
@@ -52,13 +57,14 @@ namespace TrainingSystem.Scripts.UI
 
         private void ActionFailedHandler(InteractiveObjectEntity entity)
         {
-            if (_statisticsService.Statistics.FailedActionsCount <= 1) ShowFirstFailureScreen();
+            if (_statisticsService.Statistics.FailedActionsCount <= 1) ShowFirstFailureScreen(true);
             ShowFailureMessage();
         }
 
-        private void ShowFirstFailureScreen()
+        private void ShowFirstFailureScreen(bool param)
         {
-            _failureScreen.gameObject.SetActive(true);
+            _mouseLook.SetCursorLock(!param);
+            _failureScreen.gameObject.SetActive(param);
         }
 
         private void ShowFailureMessage()
@@ -67,7 +73,8 @@ namespace TrainingSystem.Scripts.UI
 
         private void ShowResultsScreen()
         {
-            _statisticsService.Statistics.TimeInSeconds = Time.realtimeSinceStartup;
+            _mouseLook.SetCursorLock(false);
+            _statisticsService.Statistics.TimeInSeconds = Time.timeSinceLevelLoad;
             _resultsScreen.gameObject.SetActive(true);
             _resultsScreen.DisplayResults(_statisticsService.Statistics);
             Logger.Log(

@@ -2,7 +2,6 @@
 using System.Linq;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Enums;
-using TrainingSystem.Scripts.Infrastructure.Preferences;
 using TrainingSystem.Scripts.Model;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
@@ -13,14 +12,14 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
         private TrainingScenario _scenario;
         private Queue<TrainingScenario.Stage> _stagesQueue;
         private TrainingScenario.Stage _currentStage;
-        
+
         public ScenarioService()
         {
-            _scenario = GlobalPreferences.SelectedScenario;
+            _scenario = TrainingPreferences.TrainingScenario;
             _stagesQueue = new Queue<TrainingScenario.Stage>(_scenario.Stages);
             _currentStage = _stagesQueue.Dequeue();
         }
-        
+
         public string[] GetObjectsToEnableOnCurrentStage() => _currentStage.EnableObjectsWhenEntered;
 
         public string[] GetObjectsToDisableOnCurrentStage() => _currentStage.DisableObjectsWhenEntered;
@@ -38,7 +37,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             _currentStage = _stagesQueue.Dequeue();
             return ScenarioActionResult.OkAndNextStage;
         }
-        
+
         private bool IsActionAllowed(InteractiveObjectEntity entity) =>
             _currentStage.CompletionConditions.Any(x => x.ObjectKey.Equals(entity.Key));
 
@@ -53,11 +52,10 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             condition.IsSatisfied = isSatisfied;
             return isSatisfied;
         }
-        
+
         /// <inheritdoc />
         public void OnSceneExit()
         {
         }
-
     }
 }

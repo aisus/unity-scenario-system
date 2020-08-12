@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TrainingSystem.Scripts.Configuration
 {
-    [CreateAssetMenu(fileName = "New TrainingScenario", menuName = "TrainingScenario", order = 0)]
+    [CreateAssetMenu(fileName = "New TrainingScenario", menuName = "Training Scenario", order = 0)]
     public class TrainingScenario : ScriptableObject
     {
         [Serializable]

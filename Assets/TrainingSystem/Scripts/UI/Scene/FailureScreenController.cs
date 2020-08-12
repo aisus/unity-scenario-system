@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TrainingSystem.Scripts.UI
+namespace TrainingSystem.Scripts.UI.Scene
 {
     public class FailureScreenController : MonoBehaviour
     {
