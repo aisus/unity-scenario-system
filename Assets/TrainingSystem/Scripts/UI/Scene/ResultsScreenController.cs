@@ -27,9 +27,8 @@ namespace TrainingSystem.Scripts.UI.Scene
             
             sb.Append($"Сценарий выполнен {(entity.IsSuccessful ? "успешно" : "с ошибками")}\n");
             
-            var actionsWord = entity.TotalActionsCount == 1 ? "действие" : "действий";
             var errorWord = entity.FailedActionsCount == 1 ? "ошибочное" : "ошибочных";
-            sb.Append($"{entity.TotalActionsCount} {actionsWord}, {entity.FailedActionsCount} {errorWord}\n");
+            sb.Append($"Действий: {entity.TotalActionsCount}, {entity.FailedActionsCount} {errorWord}\n");
             
             sb.Append($"Верных действий: {Mathf.CeilToInt(entity.SuccessRate * 100)}%\n");
             

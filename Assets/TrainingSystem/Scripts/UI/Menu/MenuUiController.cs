@@ -14,8 +14,9 @@ namespace TrainingSystem.Scripts.UI.Menu
 
         private void Awake()
         {
-            var names = _initializer.Data.Select(x => x.Name).ToList();
-            names.ForEach(InitScenarioStartButton);
+            var scenarioNames = _initializer.Data.Select(x => x.Name).ToList();
+            scenarioNames.ForEach(InitScenarioStartButton);
+            _exitButton.onClick.AddListener(Application.Quit);
         }
 
         private void InitScenarioStartButton(string scenarioName)

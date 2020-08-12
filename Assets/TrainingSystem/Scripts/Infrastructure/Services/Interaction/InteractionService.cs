@@ -18,19 +18,21 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         public Action<InteractiveObjectEntity> OnActionSucceed { get; set; }
         public Action OnScenarioCompleted { get; set; }
 
-        private readonly List<InteractiveBehaviour> _interactiveObjects;
+        public List<InteractiveBehaviour> InteractiveBehaviours => _interactiveBehaviours;
+
+        private readonly List<InteractiveBehaviour> _interactiveBehaviours;
         private readonly IScenarioService _scenarioService;
 
         public InteractionService()
         {
-            _interactiveObjects = new List<InteractiveBehaviour>();
+            _interactiveBehaviours = new List<InteractiveBehaviour>();
             _scenarioService = ServiceLocator.Current.ResolveDependency<IScenarioService>();
         }
 
         /// <inheritdoc />
         public void AddInteractiveEntity(InteractiveBehaviour behaviour)
         {
-            _interactiveObjects.Add(behaviour);
+            _interactiveBehaviours.Add(behaviour);
             behaviour.OnActionPerformed += ActionPerformedHandler;
         }
 

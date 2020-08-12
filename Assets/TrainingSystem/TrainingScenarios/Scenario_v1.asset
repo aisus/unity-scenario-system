@@ -20,8 +20,6 @@ MonoBehaviour:
     _completionConditions:
     - _objectKey: AlarmButton
       _requiredState: 2
-    - _objectKey: SwitchCover
-      _requiredState: 1
   - _name: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043A\u0440\u044B\u0448\u043A\u0443
       \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0430"
     _enableObjectsWhenEntered:
