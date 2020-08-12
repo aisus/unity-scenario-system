@@ -37,19 +37,8 @@ namespace TrainingSystem.Scripts.Model
             set => _type = value;
         }
 
-        /// <summary>
-        /// String key of an object
-        /// </summary>
         [SerializeField] private string _key;
-
-        /// <summary>
-        /// Object type
-        /// </summary>
         [SerializeField] private InteractiveObjectType _type;
-
-        /// <summary>
-        /// Current state
-        /// </summary>
         [SerializeField] private InteractiveObjectState _state;
     }
 }

@@ -13,27 +13,33 @@ MonoBehaviour:
   m_Name: Scenario_v1
   m_EditorClassIdentifier: 
   _stages:
-  - _enableObjectsWhenEntered:
-    - Button
+  - _name: "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0441\u0438\u0433\u043D\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044E"
+    _enableObjectsWhenEntered:
+    - AlarmButton
     _disableObjectsWhenEntered: []
     _completionConditions:
     - _objectKey: AlarmButton
       _requiredState: 2
-  - _enableObjectsWhenEntered:
+  - _name: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043A\u0440\u044B\u0448\u043A\u0443
+      \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0430"
+    _enableObjectsWhenEntered:
     - Switch
     _disableObjectsWhenEntered:
     - Button
     _completionConditions:
     - _objectKey: SwitchCover
       _requiredState: 2
-  - _enableObjectsWhenEntered:
+  - _name: "\u0412\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0442\u0435\u043B\u044C"
+    _enableObjectsWhenEntered:
     - Switch
     _disableObjectsWhenEntered:
     - Button
     _completionConditions:
     - _objectKey: Switch
       _requiredState: 2
-  - _enableObjectsWhenEntered:
+  - _name: "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043A\u0440\u044B\u0448\u043A\u0443
+      \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0430"
+    _enableObjectsWhenEntered:
     - Switch
     _disableObjectsWhenEntered:
     - Button

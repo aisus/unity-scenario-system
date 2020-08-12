@@ -1,30 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Enums;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
+using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Model;
-using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
 {
     /// <inheritdoc cref="IScenarioService" />
-    [DisallowMultipleComponent]
-    public class ScenarioService : MonoBehaviour, IScenarioService
+    public class ScenarioService : IScenarioService
     {
-        [SerializeField] private TrainingScenario _scenario;
-
+        private TrainingScenario _scenario;
         private Queue<TrainingScenario.Stage> _stagesQueue;
         private TrainingScenario.Stage _currentStage;
+        private Lazy<IInteractionService> _interactionService;
 
-        #region EVENT_FUNCTIONS
-
-        private void Start()
+        public ScenarioService()
         {
+            _interactionService =
+                new Lazy<IInteractionService>(() => ServiceLocator.Current.ResolveDependency<IInteractionService>());
+            _scenario = TrainingPreferences.TrainingScenario;
             _stagesQueue = new Queue<TrainingScenario.Stage>(_scenario.Stages);
             _currentStage = _stagesQueue.Dequeue();
         }
-
-        #endregion
 
         public string[] GetObjectsToEnableOnCurrentStage() => _currentStage.EnableObjectsWhenEntered;
 
@@ -36,24 +36,33 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
         {
             if (!IsActionAllowed(entity)) return ScenarioActionResult.ActionNotAllowed;
             var isSatisfied = TrySatisfyConditions(entity);
-            var isStageCompleted = AreAllStageConditionsSatisfied();
             if (!isSatisfied) return ScenarioActionResult.ConditionsNotMatch;
-            if (!isStageCompleted) return ScenarioActionResult.Ok;
+            if (!AreAllStageConditionsSatisfied()) return ScenarioActionResult.Ok;
             if (IsScenarioCompleted()) return ScenarioActionResult.ScenarioCompleted;
-            _currentStage = _stagesQueue.Dequeue();
-            return ScenarioActionResult.OkAndNextStage;
-        }
+            do
+            {
+                _currentStage = _stagesQueue.Dequeue();
+            } while (AreAllStageConditionsSatisfied());
 
-        /// <inheritdoc />
-        public void OnSceneExit()
-        {
+            return ScenarioActionResult.OkAndNextStage;
         }
 
         private bool IsActionAllowed(InteractiveObjectEntity entity) =>
             _currentStage.CompletionConditions.Any(x => x.ObjectKey.Equals(entity.Key));
 
-        private bool AreAllStageConditionsSatisfied() =>
-            _currentStage.CompletionConditions.All(x => x.IsSatisfied);
+        private bool AreAllStageConditionsSatisfied()
+        {
+            var interactiveEntities = _interactionService.Value.InteractiveBehaviours.Select(x => x.Entity).ToList();
+
+            foreach (var condition in _currentStage.CompletionConditions)
+            {
+                condition.IsSatisfied =
+                    interactiveEntities.FirstOrDefault(x => x.Key.Equals(condition.ObjectKey))?.State ==
+                    condition.RequiredState;
+            }
+
+            return _currentStage.CompletionConditions.All(x => x.IsSatisfied);
+        }
 
         private bool TrySatisfyConditions(InteractiveObjectEntity entity)
         {
@@ -62,6 +71,11 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             var isSatisfied = entity.State == condition.RequiredState;
             condition.IsSatisfied = isSatisfied;
             return isSatisfied;
+        }
+
+        /// <inheritdoc />
+        public void OnSceneExit()
+        {
         }
     }
 }

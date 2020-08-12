@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TrainingSystem.Scripts.Configuration
 {
-    [CreateAssetMenu(fileName = "New TrainingScenario", menuName = "TrainingScenario", order = 0)]
+    [CreateAssetMenu(fileName = "New TrainingScenario", menuName = "Training Scenario", order = 0)]
     public class TrainingScenario : ScriptableObject
     {
         [Serializable]
@@ -24,6 +24,8 @@ namespace TrainingSystem.Scripts.Configuration
         [Serializable]
         public class Stage
         {
+            public string Name => _name;
+
             public bool isCompleted => _completionConditions.All(x => x.IsSatisfied);
             
             public string[] EnableObjectsWhenEntered => _enableObjectsWhenEntered;
@@ -31,7 +33,8 @@ namespace TrainingSystem.Scripts.Configuration
             public string[] DisableObjectsWhenEntered => _disableObjectsWhenEntered;
 
             public Condition[] CompletionConditions => _completionConditions;
-            
+
+            [SerializeField] private string _name;
             [SerializeField] private string[] _enableObjectsWhenEntered;
             [SerializeField] private string[] _disableObjectsWhenEntered;
             [SerializeField] private Condition[] _completionConditions;

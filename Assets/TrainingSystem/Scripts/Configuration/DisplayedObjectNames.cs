@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace TrainingSystem.Scripts.Configuration
@@ -29,5 +30,11 @@ namespace TrainingSystem.Scripts.Configuration
         public Entry[] Data => _data;
 
         [SerializeField] private Entry[] _data;
+        
+        public string GetNameByKey(string key) =>
+            _data.FirstOrDefault(x => x.ObjectKey == key)?.DisplayedName;
+
+        public string GetKeyByName(string name) =>
+            _data.FirstOrDefault(x => x.DisplayedName == name)?.ObjectKey;
     }
 }

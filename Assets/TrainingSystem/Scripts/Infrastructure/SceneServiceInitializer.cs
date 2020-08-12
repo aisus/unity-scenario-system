@@ -1,8 +1,8 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
+﻿using TrainingSystem.Scripts.Configuration;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.Scenarios;
 using TrainingSystem.Scripts.Infrastructure.Services.Statistics;
-using TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames;
 using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure
@@ -11,19 +11,34 @@ namespace TrainingSystem.Scripts.Infrastructure
     /// Registers scene-specific services when scene is loaded
     /// </summary>
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(ObjectNamesService))]
-    [RequireComponent(typeof(ScenarioService))]
     public class SceneServiceInitializer : MonoBehaviour
     {
+        [Header("Default in-editor preferences")]
+        [SerializeField] private TrainingScenario _defaultTrainingScenario;
+        [SerializeField] private DisplayedObjectNames _defaultDisplayedObjectNames;
+        [SerializeField] private GameObject _defaultTrainingSetupPrefab;
+        
         private void Awake()
         {
-            // Register MonoBehaviour objects as services
-            ServiceLocator.Current.RegisterService<IObjectNamesService>(GetComponent<ObjectNamesService>());
-            ServiceLocator.Current.RegisterService<IScenarioService>(GetComponent<ScenarioService>());
+            // Register default preferences, if scene is played in editor
+            if (Application.isEditor)
+            {
+                if (!TrainingPreferences.TrainingScenario)
+                    TrainingPreferences.TrainingScenario = _defaultTrainingScenario;
+                if (!TrainingPreferences.DisplayedObjectNames)
+                    TrainingPreferences.DisplayedObjectNames = _defaultDisplayedObjectNames;
+                if (!TrainingPreferences.TrainingSetupPrefab)
+                    TrainingPreferences.TrainingSetupPrefab = _defaultTrainingSetupPrefab;
+            }
+
+            // Register MonoBehaviour objects as services, if needed
             
             // Register plain C# objects as services
+            ServiceLocator.Current.RegisterService<IScenarioService>(new ScenarioService());
             ServiceLocator.Current.RegisterService<IInteractionService>(new InteractionService());
             ServiceLocator.Current.RegisterService<IStatisticsService>(new StatisticsService());
+
+            Instantiate(TrainingPreferences.TrainingSetupPrefab);
         }
 
         private void OnDestroy()
