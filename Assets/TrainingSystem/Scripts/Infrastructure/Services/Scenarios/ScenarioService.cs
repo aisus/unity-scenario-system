@@ -2,31 +2,25 @@
 using System.Linq;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Enums;
-using TrainingSystem.Scripts.Infrastructure.Services.Preferences;
+using TrainingSystem.Scripts.Infrastructure.Preferences;
 using TrainingSystem.Scripts.Model;
-using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
 {
     /// <inheritdoc cref="IScenarioService" />
-    [DisallowMultipleComponent]
-    public class ScenarioService : MonoBehaviour, IScenarioService
+    public class ScenarioService : IScenarioService
     {
         private TrainingScenario _scenario;
         private Queue<TrainingScenario.Stage> _stagesQueue;
         private TrainingScenario.Stage _currentStage;
-
-        #region EVENT_FUNCTIONS
-
-        private void Start()
+        
+        public ScenarioService()
         {
             _scenario = GlobalPreferences.SelectedScenario;
             _stagesQueue = new Queue<TrainingScenario.Stage>(_scenario.Stages);
             _currentStage = _stagesQueue.Dequeue();
         }
-
-        #endregion
-
+        
         public string[] GetObjectsToEnableOnCurrentStage() => _currentStage.EnableObjectsWhenEntered;
 
         public string[] GetObjectsToDisableOnCurrentStage() => _currentStage.DisableObjectsWhenEntered;
@@ -44,12 +38,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             _currentStage = _stagesQueue.Dequeue();
             return ScenarioActionResult.OkAndNextStage;
         }
-
-        /// <inheritdoc />
-        public void OnSceneExit()
-        {
-        }
-
+        
         private bool IsActionAllowed(InteractiveObjectEntity entity) =>
             _currentStage.CompletionConditions.Any(x => x.ObjectKey.Equals(entity.Key));
 
@@ -64,5 +53,11 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             condition.IsSatisfied = isSatisfied;
             return isSatisfied;
         }
+        
+        /// <inheritdoc />
+        public void OnSceneExit()
+        {
+        }
+
     }
 }

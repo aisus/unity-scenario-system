@@ -1,13 +1,13 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
+﻿using TrainingSystem.Scripts.Infrastructure.Preferences;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.Statistics;
-using TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames;
-using TrainingSystem.Scripts.Infrastructure.Services.Utility.SceneManagement;
+using TrainingSystem.Scripts.Infrastructure.Utility.SceneManagement;
 using TrainingSystem.Scripts.Model;
 using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
 using UnityEngine.UI;
-using Logger = TrainingSystem.Scripts.Infrastructure.Services.Utility.Logging.Logger;
+using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logging.Logger;
 
 namespace TrainingSystem.Scripts.UI
 {
@@ -21,13 +21,11 @@ namespace TrainingSystem.Scripts.UI
 
         private IStatisticsService _statisticsService;
         private IInteractionService _interactionService;
-        private IObjectNamesService _objectNamesService;
 
         private void Start()
         {
             _statisticsService = ServiceLocator.Current.ResolveDependency<IStatisticsService>();
             _interactionService = ServiceLocator.Current.ResolveDependency<IInteractionService>();
-            _objectNamesService = ServiceLocator.Current.ResolveDependency<IObjectNamesService>();
 
             _interactionService.OnScenarioCompleted += ScenarioCompletedHandler;
             _interactionService.OnActionFailed += ActionFailedHandler;
@@ -45,7 +43,8 @@ namespace TrainingSystem.Scripts.UI
             _objectNameText.gameObject.SetActive(currentSelectedObject);
             if (currentSelectedObject)
             {
-                _objectNameText.text = _objectNamesService.GetNameByKey(currentSelectedObject.Entity.Key);
+                _objectNameText.text =
+                    GlobalPreferences.DisplayedObjectNames.GetNameByKey(currentSelectedObject.Entity.Key);
             }
         }
 

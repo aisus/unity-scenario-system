@@ -1,6 +1,6 @@
 ﻿using TrainingSystem.Scripts.Configuration;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.Preferences
+namespace TrainingSystem.Scripts.Infrastructure.Preferences
 {
     public static class GlobalPreferences
     {

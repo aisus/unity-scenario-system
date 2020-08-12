@@ -1,7 +1,7 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.Preferences;
+﻿using TrainingSystem.Scripts.Infrastructure.Preferences;
 using UnityEngine.SceneManagement;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.SceneManagement
+namespace TrainingSystem.Scripts.Infrastructure.Utility.SceneManagement
 {
     public static class SceneLoader
     {

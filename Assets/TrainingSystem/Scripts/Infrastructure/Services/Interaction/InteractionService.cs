@@ -6,7 +6,7 @@ using TrainingSystem.Scripts.Infrastructure.Services.Scenarios;
 using TrainingSystem.Scripts.Model;
 using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
-using Logger = TrainingSystem.Scripts.Infrastructure.Services.Utility.Logging.Logger;
+using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logging.Logger;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 {

@@ -26,8 +26,8 @@ namespace TrainingSystem.Scripts.UI
             var sb = new StringBuilder();
             sb.Append($"Сценарий выполнен {(entity.IsSuccessful ? "успешно" : "с ошибками")}\n");
             sb.Append($"{entity.TotalActionsCount} действий, {entity.FailedActionsCount} ошибочных\n");
-            sb.Append($"Доля успешных действий: {entity.SuccessRate * 100}%\n");
-            sb.Append($"Время выполнения {Mathf.FloorToInt(entity.TimeInSeconds / 60)} минут {Math.Round(entity.TimeInSeconds % 60, 2)} секунд");
+            sb.Append($"Верных действий: {Mathf.CeilToInt(entity.SuccessRate * 100)}%\n");
+            sb.Append($"Время выполнения: {Mathf.FloorToInt(entity.TimeInSeconds / 60)} минут {Mathf.FloorToInt(entity.TimeInSeconds % 60)} секунд");
             _resultsText.text = sb.ToString();
         }
     }

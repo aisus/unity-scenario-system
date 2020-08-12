@@ -18,7 +18,6 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.DI
         private ServiceLocator()
         {
             _registeredServices = new Dictionary<Type, IService>();
-            GlobalServiceInitializer.RegisterGlobalServices(this);
         }
 
         /// <summary>
