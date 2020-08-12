@@ -2,9 +2,10 @@
 using TrainingSystem.Scripts.Configuration;
 using UnityEngine;
 
-namespace TrainingSystem.Scripts.Infrastructure.Services.Utility
+namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames
 {
     /// <inheritdoc cref="IObjectNamesService" />
+    [DisallowMultipleComponent]
     public class ObjectNamesService : MonoBehaviour, IObjectNamesService
     {
         [SerializeField] private DisplayedObjectNames _displayedObjectNames;
@@ -14,13 +15,12 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Utility
             _displayedObjectNames.Data.FirstOrDefault(x => x.ObjectKey == key)?.DisplayedName;
 
         /// <inheritdoc />
-        public string GetKeyByName(string name) => 
+        public string GetKeyByName(string name) =>
             _displayedObjectNames.Data.FirstOrDefault(x => x.DisplayedName == name)?.ObjectKey;
 
         /// <inheritdoc />
         public void OnSceneExit()
         {
-            
         }
     }
 }

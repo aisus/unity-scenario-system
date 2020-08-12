@@ -1,5 +1,7 @@
-﻿using TrainingSystem.Scripts.Infrastructure.Services.DI;
-using TrainingSystem.Scripts.Interaction;
+﻿using System;
+using TrainingSystem.Scripts.Infrastructure.Services.DI;
+using TrainingSystem.Scripts.Model;
+using TrainingSystem.Scripts.SceneInteraction;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 {
@@ -8,6 +10,11 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
     /// </summary>
     public interface IInteractionService : ISceneService
     {
+        Action<InteractiveObjectEntity> OnActionPerformed { get; set; }
+        Action<InteractiveObjectEntity> OnActionSucceed { get; set; }
+        Action<InteractiveObjectEntity> OnActionFailed { get; set; }
+        Action OnScenarioCompleted { get; set; }
+
         /// <summary>
         /// Add new interactive object
         /// </summary>

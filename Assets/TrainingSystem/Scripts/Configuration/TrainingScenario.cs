@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TrainingSystem.Scripts.Enums;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ namespace TrainingSystem.Scripts.Configuration
         [Serializable]
         public class Stage
         {
+            public bool isCompleted => _completionConditions.All(x => x.IsSatisfied);
+            
             public string[] EnableObjectsWhenEntered => _enableObjectsWhenEntered;
 
             public string[] DisableObjectsWhenEntered => _disableObjectsWhenEntered;

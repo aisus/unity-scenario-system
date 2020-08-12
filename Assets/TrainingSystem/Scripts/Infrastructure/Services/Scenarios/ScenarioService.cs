@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TrainingSystem.Scripts.Configuration;
+using TrainingSystem.Scripts.Enums;
 using TrainingSystem.Scripts.Model;
 using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
 {
+    /// <inheritdoc cref="IScenarioService" />
+    [DisallowMultipleComponent]
     public class ScenarioService : MonoBehaviour, IScenarioService
     {
         [SerializeField] private TrainingScenario _scenario;
@@ -27,7 +30,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
 
         public string[] GetObjectsToDisableOnCurrentStage() => _currentStage.DisableObjectsWhenEntered;
 
-        public bool IsScenarioCompleted() => !_stagesQueue.Any();
+        public bool IsScenarioCompleted() => !_stagesQueue.Any() && _currentStage.isCompleted;
 
         public ScenarioActionResult TryExecuteScenarioAction(InteractiveObjectEntity entity)
         {
