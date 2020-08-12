@@ -2,6 +2,7 @@
 using System.Linq;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Enums;
+using TrainingSystem.Scripts.Infrastructure.Services.Preferences;
 using TrainingSystem.Scripts.Model;
 using UnityEngine;
 
@@ -11,8 +12,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
     [DisallowMultipleComponent]
     public class ScenarioService : MonoBehaviour, IScenarioService
     {
-        [SerializeField] private TrainingScenario _scenario;
-
+        private TrainingScenario _scenario;
         private Queue<TrainingScenario.Stage> _stagesQueue;
         private TrainingScenario.Stage _currentStage;
 
@@ -20,6 +20,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
 
         private void Start()
         {
+            _scenario = GlobalPreferences.SelectedScenario;
             _stagesQueue = new Queue<TrainingScenario.Stage>(_scenario.Stages);
             _currentStage = _stagesQueue.Dequeue();
         }

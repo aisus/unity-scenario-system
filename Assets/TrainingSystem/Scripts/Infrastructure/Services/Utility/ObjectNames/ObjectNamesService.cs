@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using TrainingSystem.Scripts.Configuration;
+using TrainingSystem.Scripts.Infrastructure.Services.Preferences;
 using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames
@@ -8,8 +9,9 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames
     [DisallowMultipleComponent]
     public class ObjectNamesService : MonoBehaviour, IObjectNamesService
     {
-        [SerializeField] private DisplayedObjectNames _displayedObjectNames;
 
+        private DisplayedObjectNames _displayedObjectNames;
+        
         /// <inheritdoc />
         public string GetNameByKey(string key) =>
             _displayedObjectNames.Data.FirstOrDefault(x => x.ObjectKey == key)?.DisplayedName;
@@ -21,6 +23,11 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames
         /// <inheritdoc />
         public void OnSceneExit()
         {
+        }
+        
+        private void Start()
+        {
+            _displayedObjectNames = GlobalPreferences.DisplayedObjectNames;
         }
     }
 }
