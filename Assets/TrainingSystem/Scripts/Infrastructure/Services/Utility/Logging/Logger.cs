@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.Logging
 {
-    public class UnityDebugLogger : ILogger
+    public static class Logger
     {
-        public void Log(string message, LogType type)
+        public static void Log(string message, LogType type)
         {
             switch (type)
             {
@@ -29,7 +29,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Utility.Logging
             }
         }
 
-        public void Log(Exception exception)
+        public static void Log(Exception exception)
         {
             Debug.LogException(exception);
         }

@@ -1,5 +1,4 @@
-﻿using TrainingSystem.Scripts.Configuration;
-using TrainingSystem.Scripts.Enums;
+﻿using TrainingSystem.Scripts.Enums;
 using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Model;
 

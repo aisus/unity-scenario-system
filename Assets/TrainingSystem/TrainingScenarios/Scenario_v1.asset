@@ -19,6 +19,8 @@ MonoBehaviour:
     _completionConditions:
     - _objectKey: AlarmButton
       _requiredState: 2
+    - _objectKey: SwitchCover
+      _requiredState: 1
   - _enableObjectsWhenEntered:
     - Switch
     _disableObjectsWhenEntered:

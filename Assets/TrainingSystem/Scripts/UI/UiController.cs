@@ -2,17 +2,22 @@
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.Statistics;
 using TrainingSystem.Scripts.Infrastructure.Services.Utility.ObjectNames;
+using TrainingSystem.Scripts.Infrastructure.Services.Utility.SceneManagement;
 using TrainingSystem.Scripts.Model;
 using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
 using UnityEngine.UI;
+using Logger = TrainingSystem.Scripts.Infrastructure.Services.Utility.Logging.Logger;
 
 namespace TrainingSystem.Scripts.UI
 {
     public class UiController : MonoBehaviour
     {
         [SerializeField] private Selector _selector;
-        [SerializeField] private Text _text;
+        [SerializeField] private Text _objectNameText;
+
+        [Header("Screens")] [SerializeField] private FailureScreenController _failureScreen;
+        [SerializeField] private ResultsScreenController _resultsScreen;
 
         private IStatisticsService _statisticsService;
         private IInteractionService _interactionService;
@@ -23,42 +28,52 @@ namespace TrainingSystem.Scripts.UI
             _statisticsService = ServiceLocator.Current.ResolveDependency<IStatisticsService>();
             _interactionService = ServiceLocator.Current.ResolveDependency<IInteractionService>();
             _objectNamesService = ServiceLocator.Current.ResolveDependency<IObjectNamesService>();
+
             _interactionService.OnScenarioCompleted += ScenarioCompletedHandler;
             _interactionService.OnActionFailed += ActionFailedHandler;
+
+            _failureScreen.OnExitPressed += SceneLoader.LoadMainMenu;
+            _failureScreen.OnContinuePressed += () => _failureScreen.gameObject.SetActive(false);
+            _failureScreen.OnRestartPressed += SceneLoader.ReloadCurrentScene;
+            _resultsScreen.OnExitPressed += SceneLoader.LoadMainMenu;
+            _failureScreen.OnRestartPressed += SceneLoader.ReloadCurrentScene;
         }
 
         private void Update()
         {
-            _statisticsService.Statistics.TimeInSeconds = Time.realtimeSinceStartup;
             var currentSelectedObject = _selector.CurrentSelectedObject;
-            _text.gameObject.SetActive(currentSelectedObject);
+            _objectNameText.gameObject.SetActive(currentSelectedObject);
             if (currentSelectedObject)
             {
-                _text.text = _objectNamesService.GetNameByKey(currentSelectedObject.Entity.Key);
+                _objectNameText.text = _objectNamesService.GetNameByKey(currentSelectedObject.Entity.Key);
             }
         }
 
-        private void ScenarioCompletedHandler() => ShowScenarioStatistics();
+        private void ScenarioCompletedHandler() => ShowResultsScreen();
 
         private void ActionFailedHandler(InteractiveObjectEntity entity)
         {
-            if (_statisticsService.Statistics.FailedActionsCount <= 1) ShowRestartScreen();
+            if (_statisticsService.Statistics.FailedActionsCount <= 1) ShowFirstFailureScreen();
             ShowFailureMessage();
         }
 
-        private void ShowRestartScreen()
+        private void ShowFirstFailureScreen()
         {
-            
+            _failureScreen.gameObject.SetActive(true);
         }
-        
+
         private void ShowFailureMessage()
         {
-            
         }
-        
-        private void ShowScenarioStatistics()
+
+        private void ShowResultsScreen()
         {
-            Debug.Log($"Completed in {_statisticsService.Statistics.TimeInSeconds}, success rate {_statisticsService.Statistics.SuccessRate}");
+            _statisticsService.Statistics.TimeInSeconds = Time.realtimeSinceStartup;
+            _resultsScreen.gameObject.SetActive(true);
+            _resultsScreen.DisplayResults(_statisticsService.Statistics);
+            Logger.Log(
+                $"Completed in {_statisticsService.Statistics.TimeInSeconds}, success rate {_statisticsService.Statistics.SuccessRate}",
+                LogType.Log);
         }
     }
 }
