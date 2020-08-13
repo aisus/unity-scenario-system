@@ -41,11 +41,39 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         /// <param name="behaviour"></param>
         public bool TryPerformAction(InteractiveBehaviour behaviour)
         {
-            if (!behaviour.Entity.InteractionEnabled) return false;
-            
+            var entity = behaviour.Entity;
+            if (!entity.InteractionEnabled) return false;
+
+            switch (entity.State)
+            {
+                case InteractiveObjectState.Inactive:
+                    // UseOnce type disables itself when activated
+                    if (entity.Type == InteractiveObjectType.UseOnce)
+                    {
+                        entity.State              = InteractiveObjectState.Active;
+                        entity.InteractionEnabled = false;
+                    }
+                    // Trigger type changes to active state when activated
+                    // Switch type changes to active state when activated
+                    else
+                    {
+                        entity.State = InteractiveObjectState.Active;
+                    }
+
+                    break;
+                case InteractiveObjectState.Active:
+                    // Switch type changes to inactive state when deactivated
+                    if (entity.Type == InteractiveObjectType.Switch) entity.State = InteractiveObjectState.Inactive;
+                    // Trigger type can't be deactivated
+                    // UseOnce type can't be deactivated
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             Logger.Log($"Action performed {behaviour.Entity.Key} -> {behaviour.Entity.State}", LogType.Log);
 
-                OnActionPerformed?.Invoke(behaviour.Entity);
+            OnActionPerformed?.Invoke(behaviour.Entity);
             var result = _scenarioService.TryExecuteScenarioAction(behaviour.Entity);
 
             Logger.Log($"Result: {result}", LogType.Log);

@@ -30,7 +30,7 @@ namespace TrainingSystem.Scripts.SceneInteraction
 
         private static readonly int ActivatePropIndex   = Animator.StringToHash("Activate");
         private static readonly int DeactivatePropIndex = Animator.StringToHash("Deactivate");
-        
+
         private void Awake()
         {
             _animator       = GetComponent<Animator>();
@@ -43,7 +43,7 @@ namespace TrainingSystem.Scripts.SceneInteraction
             _interactionService = ServiceLocator.Current.ResolveDependency<IInteractionService>();
             _interactionService.AddInteractiveEntity(this);
         }
-        
+
         /// <summary>
         /// Select interactive entity (when looking at it or pointing with mouse)
         /// </summary>
@@ -77,40 +77,22 @@ namespace TrainingSystem.Scripts.SceneInteraction
         {
             OnActionPerformed?.Invoke(this);
             if (_interactionService.TryPerformAction(this))
-                UpdateState();
+                PlayAnimations();
         }
 
         /// <summary>
         /// Update state and visualize action
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private void UpdateState()
+        private void PlayAnimations()
         {
             switch (_entity.State)
             {
                 case InteractiveObjectState.Inactive:
-                    // UseOnce type disables itself when activated
-                    if (Entity.Type == InteractiveObjectType.UseOnce)
-                    {
-                        _entity.State              = InteractiveObjectState.Active;
-                        _entity.InteractionEnabled = false;
-                        Select(false);
-                    }
-                    // Trigger type changes to active state when activated
-                    // Switch type changes to active state when activated
-                    else
-                    {
-                        _entity.State = InteractiveObjectState.Active;
-                    }
-
-                    _animator.SetTrigger(ActivatePropIndex);
+                    _animator.SetTrigger(DeactivatePropIndex);
                     break;
                 case InteractiveObjectState.Active:
-                    // Switch type changes to inactive state when deactivated
-                    if (Entity.Type == InteractiveObjectType.Switch) _entity.State = InteractiveObjectState.Inactive;
-                    // Trigger type can't be deactivated
-                    // UseOnce type can't be deactivated
-                    _animator.SetTrigger(DeactivatePropIndex);
+                    _animator.SetTrigger(ActivatePropIndex);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -32,7 +32,7 @@ namespace TrainingSystem.Scripts.SceneInteraction
                 return;
             }
 
-            if (hit.transform == CurrentSelectedObject.transform) return;
+            if (CurrentSelectedObject && hit.transform == CurrentSelectedObject.transform) return;
 
             var foundObject = hit.transform.GetComponent<InteractiveBehaviour>();
             if (foundObject)

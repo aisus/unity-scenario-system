@@ -12,9 +12,9 @@ namespace TrainingSystem.Scripts.Infrastructure
     {
         public ScenarioPreferences[] Data => _data;
 
+        [SerializeField] private ScenarioPreferences[] _data;
         [SerializeField] private string                _trainingSceneName;
         [SerializeField] private string                _mainMenuSceneName;
-        [SerializeField] private ScenarioPreferences[] _data;
 
         public void SetupPreferences(ScenarioPreferences scenario)
         {
