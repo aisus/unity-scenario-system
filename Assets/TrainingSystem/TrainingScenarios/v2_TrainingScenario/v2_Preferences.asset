@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde83384722346938628b1e2420a00af, type: 3}
+  m_Name: v2_Preferences
+  m_EditorClassIdentifier: 
+  _name: "\u0423\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u043E v.2"
+  _trainingScenario: {fileID: 11400000, guid: 66f6b30966eceb348aa25e704cfac4d6, type: 2}
+  _displayedObjectNames: {fileID: 11400000, guid: 271c905883f0ebd448ee9d037e4b9d65,
+    type: 2}
+  _trainingSetupPrefab: {fileID: 2309850761937092285, guid: ae54ba190ff5bd6469bcbb1dacc5f49c,
+    type: 3}

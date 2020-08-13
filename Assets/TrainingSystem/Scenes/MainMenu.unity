@@ -380,13 +380,19 @@ PrefabInstance:
     - target: {fileID: 8447570128035163124, guid: 39b44cf9cfeb0864e9b91cbd733438ea,
         type: 3}
       propertyPath: _data.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8447570128035163124, guid: 39b44cf9cfeb0864e9b91cbd733438ea,
         type: 3}
       propertyPath: _data.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 3087a4f7c15cbb044abdb460694224ca,
+        type: 2}
+    - target: {fileID: 8447570128035163124, guid: 39b44cf9cfeb0864e9b91cbd733438ea,
+        type: 3}
+      propertyPath: _data.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d6aeae4ead4edb4e8a50e553ea19862,
         type: 2}
     - target: {fileID: 8447570128035163125, guid: 39b44cf9cfeb0864e9b91cbd733438ea,
         type: 3}
