@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6871255808468042119}
   - component: {fileID: 6871255808468042118}
   m_Layer: 8
-  m_Name: Cover
+  m_Name: SwitchCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6871255808818903587}
   m_Layer: 0
-  m_Name: TrainingSetup
+  m_Name: SampleTrainingSetup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 6871255809311072605}
   - component: {fileID: 6871255809311072601}
   m_Layer: 8
-  m_Name: Button
+  m_Name: AlarmButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entity:
     _key: Switch
-    _type: 1
+    _type: 0
     _state: 1
 --- !u!95 &6871255809490718846
 Animator:
@@ -508,7 +508,7 @@ Animator:
   m_GameObject: {fileID: 6871255809490718820}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 46ac4334ca813e64481006ebfca03c8b, type: 2}
+  m_Controller: {fileID: 22100000, guid: e7daf83f14b1d804196ba32a3b2ff7ea, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

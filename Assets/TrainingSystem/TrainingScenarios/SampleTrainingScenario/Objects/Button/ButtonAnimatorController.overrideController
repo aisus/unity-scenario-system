@@ -6,10 +6,10 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CubeCoverAnimatorController
-  m_Controller: {fileID: 9100000, guid: 45ee4899c571eb143b00898a85bc2a4a, type: 2}
+  m_Name: ButtonAnimatorController
+  m_Controller: {fileID: 9100000, guid: d7f63ef5c21c1034885240e405f83744, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 279a22ae126cb194395791b052ce2ab7, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 4834b5526c76a9e49bc5b876dde0e754, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bf415e5a743f37042a9b8d42e8f68289, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 787819e5f9ed0134fa2f222bd2341853, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 30579ddf1e2e4a444b74e57fa8ccd8a2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8b6fffd166300414195cc6715e9667b5, type: 2}
