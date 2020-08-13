@@ -38,7 +38,7 @@ namespace TrainingSystem.Scripts.Model
         }
 
         /// <summary>
-        /// Is interaction enabled
+        /// Is interaction with this object enabled
         /// </summary>
         public bool InteractionEnabled
         {
@@ -46,9 +46,9 @@ namespace TrainingSystem.Scripts.Model
             set => _interactionEnabled = value;
         }
 
-        [SerializeField] private string _key;
-        [SerializeField] private InteractiveObjectType _type;
+        [SerializeField] private string                 _key;
+        [SerializeField] private InteractiveObjectType  _type;
         [SerializeField] private InteractiveObjectState _state;
-        [SerializeField] private bool _interactionEnabled;
+        [SerializeField] private bool                   _interactionEnabled;
     }
 }
