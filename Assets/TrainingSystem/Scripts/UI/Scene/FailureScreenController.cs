@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace TrainingSystem.Scripts.UI.Scene
 {
+    /// <summary>
+    /// Failure screen controller, displays on first incorrect action
+    /// </summary>
     public class FailureScreenController : MonoBehaviour
     {
         public Action OnRestartPressed { get; set; }

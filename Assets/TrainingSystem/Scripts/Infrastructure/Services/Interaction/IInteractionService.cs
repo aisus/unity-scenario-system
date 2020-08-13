@@ -11,18 +11,28 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
     /// </summary>
     public interface IInteractionService : ISceneService
     {
-        string ActiveStageName { get; }
-        Action<InteractiveObjectEntity> OnActionPerformed { get; set; }
-        Action<InteractiveObjectEntity> OnActionSucceed { get; set; }
-        Action<InteractiveObjectEntity> OnActionFailed { get; set; }
-        Action OnScenarioCompleted { get; set; }
+        Action<InteractiveObjectEntity> OnActionPerformed   { get; set; }
+        Action<InteractiveObjectEntity> OnActionSucceed     { get; set; }
+        Action<InteractiveObjectEntity> OnActionFailed      { get; set; }
+        Action                          OnScenarioCompleted { get; set; }
 
-        List<InteractiveBehaviour> InteractiveBehaviours { get; }
+        string CurrentScenarioStageName { get; }
 
         /// <summary>
-        /// Add new interactive object
+        /// All interactive objects in scene
+        /// </summary>
+        IEnumerable<InteractiveBehaviour> InteractiveBehaviours { get; }
+
+        /// <summary>
+        /// Add new interactive object to tracked by service
         /// </summary>
         /// <param name="behaviour"></param>
         void AddInteractiveEntity(InteractiveBehaviour behaviour);
+
+        /// <summary>
+        /// Check if action can be performed
+        /// </summary>
+        /// <param name="behaviour"></param>
+        bool TryPerformAction(InteractiveBehaviour behaviour);
     }
 }

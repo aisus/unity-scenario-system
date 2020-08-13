@@ -8,16 +8,17 @@ using UnityEngine;
 namespace TrainingSystem.Scripts.Infrastructure
 {
     /// <summary>
-    /// Registers scene-specific services when scene is loaded
+    /// Registers scene-specific services and execute actions when scene is loaded
     /// </summary>
     [DisallowMultipleComponent]
     public class SceneServiceInitializer : MonoBehaviour
     {
-        [Header("Default in-editor preferences")]
-        [SerializeField] private TrainingScenario _defaultTrainingScenario;
+        [Header("Default in-editor preferences")] [SerializeField]
+        private TrainingScenario _defaultTrainingScenario;
+
         [SerializeField] private DisplayedObjectNames _defaultDisplayedObjectNames;
-        [SerializeField] private GameObject _defaultTrainingSetupPrefab;
-        
+        [SerializeField] private GameObject           _defaultTrainingSetupPrefab;
+
         private void Awake()
         {
             // Register default preferences, if scene is played in editor
@@ -31,8 +32,8 @@ namespace TrainingSystem.Scripts.Infrastructure
                     TrainingPreferences.TrainingSetupPrefab = _defaultTrainingSetupPrefab;
             }
 
-            // Register MonoBehaviour objects as services, if needed
-            
+            // Register MonoBehaviour objects as services here, if needed
+
             // Register plain C# objects as services
             ServiceLocator.Current.RegisterService<IInteractionService>(new InteractionService());
             ServiceLocator.Current.RegisterService<IStatisticsService>(new StatisticsService());

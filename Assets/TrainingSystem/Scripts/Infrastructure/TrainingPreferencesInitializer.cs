@@ -5,29 +5,25 @@ using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure
 {
+    /// <summary>
+    /// Initialize global preferences with values from inspector
+    /// </summary>
     public class TrainingPreferencesInitializer : MonoBehaviour
     {
-        public string TrainingSceneName => _trainingSceneName;
+        public ScenarioPreferences[] Data => _data;
 
-        public string MainMenuSceneName => _mainMenuSceneName;
+        [SerializeField] private string                _trainingSceneName;
+        [SerializeField] private string                _mainMenuSceneName;
+        [SerializeField] private ScenarioPreferences[] _data;
 
-        public PreferencesSetup[] Data => _data;
-
-        [SerializeField] private string _trainingSceneName;
-        [SerializeField] private string _mainMenuSceneName;
-        [SerializeField] private PreferencesSetup[] _data;
-
-        public void SetupPreferences(string name)
+        public void SetupPreferences(ScenarioPreferences scenario)
         {
-            var prefs = _data.FirstOrDefault(x => x.Name == name);
-            if(prefs == null) throw new ArgumentException();
-
-            TrainingPreferences.Name = prefs.Name;
-            TrainingPreferences.TrainingScenario = prefs.TrainingScenario;
-            TrainingPreferences.DisplayedObjectNames = prefs.DisplayedObjectNames;
-            TrainingPreferences.TrainingSetupPrefab = prefs.TrainingSetupPrefab;
-            TrainingPreferences.TrainingSceneName = _trainingSceneName;
-            TrainingPreferences.MainMenuSceneName = _mainMenuSceneName;
+            TrainingPreferences.Name                 = scenario.Name;
+            TrainingPreferences.TrainingScenario     = scenario.TrainingScenario;
+            TrainingPreferences.DisplayedObjectNames = scenario.DisplayedObjectNames;
+            TrainingPreferences.TrainingSetupPrefab  = scenario.TrainingSetupPrefab;
+            TrainingPreferences.TrainingSceneName    = _trainingSceneName;
+            TrainingPreferences.MainMenuSceneName    = _mainMenuSceneName;
         }
     }
 }

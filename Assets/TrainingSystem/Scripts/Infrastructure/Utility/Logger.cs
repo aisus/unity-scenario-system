@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TrainingSystem.Scripts.Infrastructure.Utility
 {
+    /// <summary>
+    /// Wrapper for Unity logger
+    /// </summary>
     public static class Logger
     {
         public static void Log(string message, LogType type)

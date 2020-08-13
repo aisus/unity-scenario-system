@@ -7,7 +7,7 @@ namespace TrainingSystem.Scripts.Configuration
     /// <summary>
     /// Mapping of object string keys to displayed names
     /// </summary>
-    [CreateAssetMenu(fileName = "New DisplayedObjectNames", menuName = "Displayed Object Names", order = 1)]
+    [CreateAssetMenu(fileName = "New DisplayedObjectNames", menuName = "Displayed Object Names", order = 2)]
     public class DisplayedObjectNames : ScriptableObject
     {
         [Serializable]
@@ -30,7 +30,7 @@ namespace TrainingSystem.Scripts.Configuration
         public Entry[] Data => _data;
 
         [SerializeField] private Entry[] _data;
-        
+
         public string GetNameByKey(string key) =>
             _data.FirstOrDefault(x => x.ObjectKey == key)?.DisplayedName;
 

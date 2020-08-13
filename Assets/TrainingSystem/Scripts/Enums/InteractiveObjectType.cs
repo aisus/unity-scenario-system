@@ -9,12 +9,12 @@
         /// Saves object state (e.g. switch on-off)
         /// </summary>
         Switch,
-        
+
         /// <summary>
-        /// Activate and reset to inactive (e.g. button)
+        /// Activate and keep active always (e.g. alarm button)
         /// </summary>
-        Button,
-        
+        Trigger,
+
         /// <summary>
         /// Activate once and disable (e.g. cut the wire)
         /// </summary>

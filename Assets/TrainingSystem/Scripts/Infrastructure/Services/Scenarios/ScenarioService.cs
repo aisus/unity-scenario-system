@@ -10,65 +10,65 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
     /// <inheritdoc cref="IScenarioService" />
     public class ScenarioService : IScenarioService
     {
-        public string ActiveStageName => _currentStage?.Name;
+        /// <inheritdoc />
+        public string CurrentStageName => _currentStage?.Name;
 
-        private TrainingScenario _scenario;
-        private Queue<TrainingScenario.Stage> _stagesQueue;
-        private TrainingScenario.Stage _currentStage;
-        private IInteractionService _interactionService;
+        private readonly Queue<TrainingScenario.Stage> _stagesQueue;
+        private readonly IInteractionService           _interactionService;
+        private          TrainingScenario.Stage        _currentStage;
 
         public ScenarioService(IInteractionService interactionService)
         {
             _interactionService = interactionService;
-            _scenario = TrainingPreferences.TrainingScenario;
-            _stagesQueue = new Queue<TrainingScenario.Stage>(_scenario.Stages);
-            _currentStage = _stagesQueue.Dequeue();
-            UpdateObjectStates();
+            _stagesQueue        = new Queue<TrainingScenario.Stage>(TrainingPreferences.TrainingScenario.Stages);
+            _currentStage       = _stagesQueue.Dequeue();
+            ActivateObjects();
         }
 
-        public string[] GetObjectsToEnableOnCurrentStage() => _currentStage.EnableObjectsWhenEntered;
-
-        public string[] GetObjectsToDisableOnCurrentStage() => _currentStage.DisableObjectsWhenEntered;
-
-        public bool IsScenarioCompleted() => !_stagesQueue.Any() && _currentStage.isCompleted;
-
+        /// <inheritdoc />
         public ScenarioActionResult TryExecuteScenarioAction(InteractiveObjectEntity entity)
         {
-            if (!IsActionAllowed(entity)) return ScenarioActionResult.ActionNotAllowed;
-            var isSatisfied = TrySatisfyConditions(entity);
-            if (!isSatisfied) return ScenarioActionResult.ConditionsNotMatch;
-            if (!AreAllStageConditionsSatisfied()) return ScenarioActionResult.Ok;
+            if (!IsActionAllowed(entity) || !IsActionSatisfiedConditions(entity))
+                return ScenarioActionResult.ActionNotAllowed;
+            if (!UpdateStageConditions()) return ScenarioActionResult.Ok;
             if (IsScenarioCompleted()) return ScenarioActionResult.ScenarioCompleted;
             do
             {
                 _currentStage = _stagesQueue.Dequeue();
-            } while (AreAllStageConditionsSatisfied());
-            UpdateObjectStates();
+            } while (UpdateStageConditions());
+
+            ActivateObjects();
 
             return ScenarioActionResult.OkAndNextStage;
         }
 
-        private void UpdateObjectStates()
-        {
-            if (_currentStage.DisableObjectsWhenEntered.Any())
-            {
-                _interactionService.InteractiveBehaviours.Where(x =>
-                        _currentStage.DisableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
-                    .ForEach(x => x.Entity.InteractionEnabled = false);
-            }
-            
-            if (_currentStage.EnableObjectsWhenEntered.Any())
-            {
-                _interactionService.InteractiveBehaviours.Where(x =>
-                        _currentStage.EnableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
-                    .ForEach(x => x.Entity.InteractionEnabled = true);
-            }
-        }
-
+        /// <summary>
+        /// Check if entity exists in any of the current stage's exit conditions
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         private bool IsActionAllowed(InteractiveObjectEntity entity) =>
             _currentStage.CompletionConditions.Any(x => x.ObjectKey.Equals(entity.Key));
 
-        private bool AreAllStageConditionsSatisfied()
+        /// <summary>
+        /// Check if entity state satisfies any conditions of the current stage
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        private bool IsActionSatisfiedConditions(InteractiveObjectEntity entity)
+        {
+            var condition = _currentStage.CompletionConditions.FirstOrDefault(x => x.ObjectKey.Equals(entity.Key));
+            if (condition == null) return false;
+            return entity.State == condition.RequiredState;
+        }
+
+        private bool IsScenarioCompleted() => !_stagesQueue.Any() && _currentStage.isCompleted;
+
+        /// <summary>
+        /// Update current stage's conditions with current object states
+        /// </summary>
+        /// <returns></returns>
+        private bool UpdateStageConditions()
         {
             var interactiveEntities = _interactionService.InteractiveBehaviours.Select(x => x.Entity).ToList();
 
@@ -79,16 +79,27 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
                     condition.RequiredState;
             }
 
-            return _currentStage.CompletionConditions.All(x => x.IsSatisfied);
+            return _currentStage.isCompleted;
         }
 
-        private bool TrySatisfyConditions(InteractiveObjectEntity entity)
+        /// <summary>
+        /// Update interactive objects availability for interaction according to current stage
+        /// </summary>
+        private void ActivateObjects()
         {
-            var condition = _currentStage.CompletionConditions.FirstOrDefault(x => x.ObjectKey.Equals(entity.Key));
-            if (condition == null) return false;
-            var isSatisfied = entity.State == condition.RequiredState;
-            condition.IsSatisfied = isSatisfied;
-            return isSatisfied;
+            if (_currentStage.DisableObjectsWhenEntered.Any())
+            {
+                _interactionService.InteractiveBehaviours.Where(x =>
+                                       _currentStage.DisableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
+                                   .ForEach(x => x.Entity.InteractionEnabled = false);
+            }
+
+            if (_currentStage.EnableObjectsWhenEntered.Any())
+            {
+                _interactionService.InteractiveBehaviours.Where(x =>
+                                       _currentStage.EnableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
+                                   .ForEach(x => x.Entity.InteractionEnabled = true);
+            }
         }
     }
 }

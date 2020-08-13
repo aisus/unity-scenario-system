@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 namespace TrainingSystem.Scripts.Infrastructure.Utility
 {
+    /// <summary>
+    /// Utility class for scene loading
+    /// </summary>
     public static class SceneLoader
     {
         public static void LoadMainMenu()

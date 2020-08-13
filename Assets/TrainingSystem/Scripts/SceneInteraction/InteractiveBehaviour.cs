@@ -17,39 +17,38 @@ namespace TrainingSystem.Scripts.SceneInteraction
         /// </summary>
         public InteractiveObjectEntity Entity => _entity;
 
-        public Action<InteractiveBehaviour> OnSelected { get; set; }
-        public Action<InteractiveBehaviour> OnDeselected { get; set; }
+        public Action<InteractiveBehaviour> OnSelected        { get; set; }
+        public Action<InteractiveBehaviour> OnDeselected      { get; set; }
         public Action<InteractiveBehaviour> OnActionPerformed { get; set; }
 
         [SerializeField] private InteractiveObjectEntity _entity;
 
-        private Renderer _renderer;
-        private Material _materialBackup;
-        private Animator _animator;
+        private IInteractionService _interactionService;
+        private Renderer            _renderer;
+        private Material            _materialBackup;
+        private Animator            _animator;
 
-        private static readonly int ActivatePropIndex = Animator.StringToHash("Activate");
+        private static readonly int ActivatePropIndex   = Animator.StringToHash("Activate");
         private static readonly int DeactivatePropIndex = Animator.StringToHash("Deactivate");
-
-        #region EVENT_FUNCTIONS
-
+        
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-            _renderer = GetComponent<Renderer>();
+            _animator       = GetComponent<Animator>();
+            _renderer       = GetComponent<Renderer>();
             _materialBackup = _renderer.material;
         }
 
         private void Start()
         {
-            ServiceLocator.Current.ResolveDependency<IInteractionService>().AddInteractiveEntity(this);
+            _interactionService = ServiceLocator.Current.ResolveDependency<IInteractionService>();
+            _interactionService.AddInteractiveEntity(this);
         }
-
-        #endregion
-
+        
         /// <summary>
         /// Select interactive entity (when looking at it or pointing with mouse)
         /// </summary>
         /// <param name="param"></param>
+        /// <param name="outlineMaterial"></param>
         public void Select(bool param, Material outlineMaterial = null)
         {
             if (param)
@@ -57,8 +56,8 @@ namespace TrainingSystem.Scripts.SceneInteraction
                 if (!_entity.InteractionEnabled) return;
                 if (outlineMaterial)
                 {
-                    _materialBackup = _renderer.material;
-                    _renderer.material = outlineMaterial;
+                    _materialBackup                = _renderer.material;
+                    _renderer.material             = outlineMaterial;
                     _renderer.material.mainTexture = _materialBackup.mainTexture;
                 }
 
@@ -77,27 +76,28 @@ namespace TrainingSystem.Scripts.SceneInteraction
         public void PerformAction()
         {
             OnActionPerformed?.Invoke(this);
+            if (_interactionService.TryPerformAction(this))
+                UpdateState();
         }
 
         /// <summary>
         /// Update state and visualize action
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void UpdateState()
+        private void UpdateState()
         {
-            if (!_entity.InteractionEnabled) return;
             switch (_entity.State)
             {
                 case InteractiveObjectState.Inactive:
-                    // UseOnce disables itself when activated
+                    // UseOnce type disables itself when activated
                     if (Entity.Type == InteractiveObjectType.UseOnce)
                     {
-                        _entity.State = InteractiveObjectState.Active;
+                        _entity.State              = InteractiveObjectState.Active;
                         _entity.InteractionEnabled = false;
                         Select(false);
                     }
-                    // Button changes to active state when activated
-                    // Switch changes to active state when activated
+                    // Trigger type changes to active state when activated
+                    // Switch type changes to active state when activated
                     else
                     {
                         _entity.State = InteractiveObjectState.Active;
@@ -106,10 +106,10 @@ namespace TrainingSystem.Scripts.SceneInteraction
                     _animator.SetTrigger(ActivatePropIndex);
                     break;
                 case InteractiveObjectState.Active:
-                    // Switch changes to inactive state when deactivated
+                    // Switch type changes to inactive state when deactivated
                     if (Entity.Type == InteractiveObjectType.Switch) _entity.State = InteractiveObjectState.Inactive;
-                    // Button can't be deactivated
-                    // UseOnce can't be deactivated
+                    // Trigger type can't be deactivated
+                    // UseOnce type can't be deactivated
                     _animator.SetTrigger(DeactivatePropIndex);
                     break;
                 default:

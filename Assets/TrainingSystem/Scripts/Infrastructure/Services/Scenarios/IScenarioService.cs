@@ -9,10 +9,14 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
     /// </summary>
     public interface IScenarioService
     {
-        string ActiveStageName { get; }
-        string[] GetObjectsToEnableOnCurrentStage();
-        string[] GetObjectsToDisableOnCurrentStage();
-        bool IsScenarioCompleted();
+        string CurrentStageName { get; }
+
+        /// <summary>
+        /// Check conditions and try to switch to the next stage
+        /// when actions is performed on interactive object 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         ScenarioActionResult TryExecuteScenarioAction(InteractiveObjectEntity entity);
     }
 }
