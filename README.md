@@ -21,7 +21,7 @@
 
 Типы объектов:
 * Одноразовое использование (__UseOnce__). После активации становится недоступным для взаимодействия. Пример - провод, который необходимо перерезать.
-* Одноа активация (__Trigger__). Активируется один раз. Повторное взаимодействие возможно, но не меняет состояние. Пример - кнопка пожарной сигнализации.
+* Одна активация (__Trigger__). Активируется один раз. Повторное взаимодействие возможно, но не меняет состояние. Пример - кнопка пожарной сигнализации.
 * Переключатель (__Switch__). Сохраняет состояние. Примеры - выключатель, крышка, сменная часть устройства.
 
 ### Cценарии 
@@ -57,7 +57,7 @@
 
 ![alt text](/readme-images/InteractiveBehaviour.png "InteractiveBehaviour")
 
-При произведении действия с __InteractiveBehaviour__ активируются триггеры его Animator - Activate, Deactivate. Рекомендуется создавать AnimationController для новых объектов как AnimationOverrideController. В проекте созданы три базовых Animator для трех типов объектов - AnimatorBase_Button, AnimatorBase_Switch, AnimatorBase_UseOnce.
+При произведении действия с __InteractiveBehaviour__ активируются триггеры его Animator - Activate, Deactivate. Рекомендуется создавать AnimationController для новых объектов как AnimationOverrideController. В проекте созданы три базовых Animator для трех типов объектов - AnimatorBase_Trigger, AnimatorBase_Switch, AnimatorBase_UseOnce.
 
 Сценарий создается через CreateAssetMenu.
 В созданном ScriptableObject можно настраивать этапы выполнения с соответствующими условиями перехода и списками активируемых/деактивируемых при переходе на этап объектов. Используются строковые ключи, соответствующие заданным в __InteractiveBehaviour__.

@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1cc6be2f1c48ea84314fd11c61ce4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data:
+  - {fileID: 11400000, guid: 3087a4f7c15cbb044abdb460694224ca, type: 2}
+  - {fileID: 11400000, guid: 3d6aeae4ead4edb4e8a50e553ea19862, type: 2}
   _trainingSceneName: Training
   _mainMenuSceneName: MainMenu
-  _data:
-  - {fileID: 11400000, guid: 68cf0a91c0f95ad4e992abd5b5a5dc43, type: 2}
-  - {fileID: 11400000, guid: a8fc73c1d98044e4281b69fb4f1f98ea, type: 2}

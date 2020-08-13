@@ -34,5 +34,11 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         /// </summary>
         /// <param name="behaviour"></param>
         bool TryPerformAction(InteractiveBehaviour behaviour);
+
+        /// <summary>
+        /// Enable|disable interaction with objects
+        /// </summary>
+        /// <param name="param"></param>
+        void EnableInteraction(bool param);
     }
 }

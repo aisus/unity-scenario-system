@@ -92,6 +92,7 @@ namespace TrainingSystem.Scripts.UI.Scene
         private void ShowResultsScreen()
         {
             _mouseLook.SetCursorLock(false);
+            _interactionService.EnableInteraction(false);
             _statisticsService.Statistics.TimeInSeconds = Time.timeSinceLevelLoad;
             _resultsScreen.gameObject.SetActive(true);
             _resultsScreen.DisplayResults(_statisticsService.Statistics);

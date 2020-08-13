@@ -25,11 +25,13 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 
         private readonly List<InteractiveBehaviour> _interactiveBehaviours;
         private readonly IScenarioService           _scenarioService;
+        private          bool                       _interactionEnabled;
 
         public InteractionService()
         {
             _interactiveBehaviours = new List<InteractiveBehaviour>();
             _scenarioService       = new ScenarioService(this);
+            _interactionEnabled    = true;
         }
 
         /// <inheritdoc />
@@ -42,7 +44,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         public bool TryPerformAction(InteractiveBehaviour behaviour)
         {
             var entity = behaviour.Entity;
-            if (!entity.InteractionEnabled) return false;
+            if (!entity.InteractionEnabled || !_interactionEnabled) return false;
 
             switch (entity.State)
             {
@@ -98,6 +100,9 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
 
             return result != ScenarioActionResult.ActionNotAllowed;
         }
+
+        /// <inheritdoc />
+        public void EnableInteraction(bool param) => _interactionEnabled = param;
 
         /// <inheritdoc />
         public void OnSceneExit()

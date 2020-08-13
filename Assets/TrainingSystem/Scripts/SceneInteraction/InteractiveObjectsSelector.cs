@@ -3,8 +3,7 @@
 namespace TrainingSystem.Scripts.SceneInteraction
 {
     /// <summary>
-    /// Selector component to select interactive objects
-    /// and perform actions
+    /// Selector component to select interactive objects and perform actions
     /// </summary>
     public class InteractiveObjectsSelector : MonoBehaviour
     {

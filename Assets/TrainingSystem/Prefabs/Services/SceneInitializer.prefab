@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2c48723ed649f2894925c45cbda1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultTrainingScenario: {fileID: 11400000, guid: ecb965d2209028d4c9353e7a10c245d3,
+  _defaultTrainingScenario: {fileID: 11400000, guid: d5bc7397e2fefff45bbeae2ccb04607f,
     type: 2}
-  _defaultDisplayedObjectNames: {fileID: 11400000, guid: 2341fc7d37c248c44a9c0f18b46b7528,
+  _defaultDisplayedObjectNames: {fileID: 11400000, guid: 958979e92f887c34eaf3e0659809afa9,
     type: 2}
-  _defaultTrainingSetupPrefab: {fileID: 6871255808818903586, guid: 86fc4225327d99b45ab19db8748424c2,
+  _defaultTrainingSetupPrefab: {fileID: 1068048451237156258, guid: 94712ceb2f816ce4d8115cde9b365f8b,
     type: 3}

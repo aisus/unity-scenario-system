@@ -22,7 +22,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             _interactionService = interactionService;
             _stagesQueue        = new Queue<TrainingScenario.Stage>(TrainingPreferences.TrainingScenario.Stages);
             _currentStage       = _stagesQueue.Dequeue();
-            ActivateObjects();
+            UpdateObjectsAvailability();
         }
 
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
                 _currentStage = _stagesQueue.Dequeue();
             } while (UpdateStageConditions());
 
-            ActivateObjects();
+            UpdateObjectsAvailability();
 
             return ScenarioActionResult.OkAndNextStage;
         }
@@ -65,7 +65,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
         private bool IsScenarioCompleted() => !_stagesQueue.Any() && _currentStage.isCompleted;
 
         /// <summary>
-        /// Update current stage's conditions with current object states
+        /// Update current stage's conditions with current object states and return completion state
         /// </summary>
         /// <returns></returns>
         private bool UpdateStageConditions()
@@ -85,21 +85,17 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
         /// <summary>
         /// Update interactive objects availability for interaction according to current stage
         /// </summary>
-        private void ActivateObjects()
+        private void UpdateObjectsAvailability()
         {
             if (_currentStage.DisableObjectsWhenEntered.Any())
-            {
                 _interactionService.InteractiveBehaviours.Where(x =>
                                        _currentStage.DisableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
                                    .ForEach(x => x.Entity.InteractionEnabled = false);
-            }
 
             if (_currentStage.EnableObjectsWhenEntered.Any())
-            {
                 _interactionService.InteractiveBehaviours.Where(x =>
                                        _currentStage.EnableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
                                    .ForEach(x => x.Entity.InteractionEnabled = true);
-            }
         }
     }
 }

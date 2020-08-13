@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TrainingSystem.Scripts.Infrastructure.Utility
 {
     /// <summary>
-    /// Wrapper for Unity logger
+    /// Wrapper for Unity logger. Can be extended with filters or different log targets
     /// </summary>
     public static class Logger
     {

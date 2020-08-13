@@ -6,10 +6,10 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DeviceSwitchAnimatorController
+  m_Name: InnerCoverButtonAnimatorController
   m_Controller: {fileID: 9100000, guid: 45ee4899c571eb143b00898a85bc2a4a, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 279a22ae126cb194395791b052ce2ab7, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 440c89bcca5f9b64b8d6c2169e236c24, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 185d3bfaf4206dc42aea173d94f7a3bc, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: 787819e5f9ed0134fa2f222bd2341853, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f89d1d1a969e5434da1f7fc21811b555, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 63a98eaeb12174d47adc3017597e5a90, type: 2}
