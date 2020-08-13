@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using TMPro;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Infrastructure;
 using TrainingSystem.Scripts.Infrastructure.Utility;
@@ -20,6 +21,7 @@ namespace TrainingSystem.Scripts.UI.Menu
         {
             _initializer.Data.ToList().ForEach(InitScenarioStartButton);
             _exitButton.onClick.AddListener(Application.Quit);
+            _exitButton.transform.SetAsLastSibling();
         }
 
         /// <summary>
@@ -29,7 +31,7 @@ namespace TrainingSystem.Scripts.UI.Menu
         private void InitScenarioStartButton(ScenarioPreferences scenario)
         {
             var button = Instantiate(_scenarioStartButtonPrefab, _exitButton.transform.parent).GetComponent<Button>();
-            button.GetComponentInChildren<Text>().text = scenario.Name;
+            button.GetComponentInChildren<TextMeshProUGUI>().text = scenario.Name;
             button.onClick.AddListener(() =>
             {
                 _initializer.SetupPreferences(scenario);

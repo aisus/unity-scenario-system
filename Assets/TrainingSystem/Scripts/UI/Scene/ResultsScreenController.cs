@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using TMPro;
 using TrainingSystem.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,9 @@ namespace TrainingSystem.Scripts.UI.Scene
         public Action OnRestartPressed { get; set; }
         public Action OnExitPressed    { get; set; }
 
-        [SerializeField] private Text   _resultsText;
-        [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _exitButton;
+        [SerializeField] private TextMeshProUGUI _resultsText;
+        [SerializeField] private Button          _restartButton;
+        [SerializeField] private Button          _exitButton;
 
         private void Awake()
         {
