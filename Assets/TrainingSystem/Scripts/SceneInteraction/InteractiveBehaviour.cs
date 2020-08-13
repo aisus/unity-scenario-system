@@ -54,7 +54,7 @@ namespace TrainingSystem.Scripts.SceneInteraction
         {
             if (param)
             {
-                if (Entity.State == InteractiveObjectState.Disabled) return;
+                if (!_entity.InteractionEnabled) return;
                 if (outlineMaterial)
                 {
                     _materialBackup = _renderer.material;
@@ -85,15 +85,15 @@ namespace TrainingSystem.Scripts.SceneInteraction
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void UpdateState()
         {
+            if (!_entity.InteractionEnabled) return;
             switch (_entity.State)
             {
-                case InteractiveObjectState.Disabled:
-                    break;
                 case InteractiveObjectState.Inactive:
                     // UseOnce disables itself when activated
                     if (Entity.Type == InteractiveObjectType.UseOnce)
                     {
-                        _entity.State = InteractiveObjectState.Disabled;
+                        _entity.State = InteractiveObjectState.Active;
+                        _entity.InteractionEnabled = false;
                         Select(false);
                     }
                     // Button changes to active state when activated

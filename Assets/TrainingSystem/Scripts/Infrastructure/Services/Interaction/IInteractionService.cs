@@ -11,6 +11,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
     /// </summary>
     public interface IInteractionService : ISceneService
     {
+        string ActiveStageName { get; }
         Action<InteractiveObjectEntity> OnActionPerformed { get; set; }
         Action<InteractiveObjectEntity> OnActionSucceed { get; set; }
         Action<InteractiveObjectEntity> OnActionFailed { get; set; }

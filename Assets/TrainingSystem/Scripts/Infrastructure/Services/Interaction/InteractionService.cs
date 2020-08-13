@@ -13,6 +13,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
     /// <inheritdoc />
     public class InteractionService : IInteractionService
     {
+        public string ActiveStageName => _scenarioService.ActiveStageName;
         public Action<InteractiveObjectEntity> OnActionPerformed { get; set; }
         public Action<InteractiveObjectEntity> OnActionFailed { get; set; }
         public Action<InteractiveObjectEntity> OnActionSucceed { get; set; }
@@ -26,7 +27,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         public InteractionService()
         {
             _interactiveBehaviours = new List<InteractiveBehaviour>();
-            _scenarioService = ServiceLocator.Current.ResolveDependency<IScenarioService>();
+            _scenarioService = new ScenarioService(this);
         }
 
         /// <inheritdoc />
@@ -44,7 +45,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         {
             Logger.Log($"ACTION {behaviour.Entity.Key}", LogType.Log);
 
-            if (behaviour.Entity.State != InteractiveObjectState.Disabled)
+            if (behaviour.Entity.InteractionEnabled)
                 behaviour.UpdateState();    
             
             OnActionPerformed?.Invoke(behaviour.Entity);

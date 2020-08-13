@@ -1,4 +1,5 @@
-﻿using TrainingSystem.Scripts.Configuration;
+﻿using TMPro;
+using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Infrastructure.Services.Statistics;
@@ -6,7 +7,6 @@ using TrainingSystem.Scripts.Infrastructure.Utility;
 using TrainingSystem.Scripts.Model;
 using TrainingSystem.Scripts.SceneInteraction;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 using Logger = TrainingSystem.Scripts.Infrastructure.Utility.Logger;
 
@@ -15,7 +15,8 @@ namespace TrainingSystem.Scripts.UI.Scene
     public class UiController : MonoBehaviour
     {
         [SerializeField] private Selector _selector;
-        [SerializeField] private Text _objectNameText;
+        [SerializeField] private TextMeshProUGUI _objectNameText;
+        [SerializeField] private TextMeshProUGUI _currentStageText;
 
         [Header("Screens")] [SerializeField] private FailureScreenController _failureScreen;
         [SerializeField] private ResultsScreenController _resultsScreen;
@@ -51,6 +52,8 @@ namespace TrainingSystem.Scripts.UI.Scene
                 _objectNameText.text =
                     TrainingPreferences.DisplayedObjectNames.GetNameByKey(currentSelectedObject.Entity.Key);
             }
+
+            _currentStageText.text = _interactionService.ActiveStageName;
         }
 
         private void ScenarioCompletedHandler() => ShowResultsScreen();

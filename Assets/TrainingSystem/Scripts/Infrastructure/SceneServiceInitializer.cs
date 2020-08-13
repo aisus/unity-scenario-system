@@ -34,7 +34,6 @@ namespace TrainingSystem.Scripts.Infrastructure
             // Register MonoBehaviour objects as services, if needed
             
             // Register plain C# objects as services
-            ServiceLocator.Current.RegisterService<IScenarioService>(new ScenarioService());
             ServiceLocator.Current.RegisterService<IInteractionService>(new InteractionService());
             ServiceLocator.Current.RegisterService<IStatisticsService>(new StatisticsService());
 

@@ -37,8 +37,18 @@ namespace TrainingSystem.Scripts.Model
             set => _type = value;
         }
 
+        /// <summary>
+        /// Is interaction enabled
+        /// </summary>
+        public bool InteractionEnabled
+        {
+            get => _interactionEnabled;
+            set => _interactionEnabled = value;
+        }
+
         [SerializeField] private string _key;
         [SerializeField] private InteractiveObjectType _type;
         [SerializeField] private InteractiveObjectState _state;
+        [SerializeField] private bool _interactionEnabled;
     }
 }
