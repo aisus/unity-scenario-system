@@ -16,6 +16,7 @@ namespace TrainingSystem.Scripts.UI.Scene
     {
         [SerializeField] private Selector _selector;
         [SerializeField] private Text _objectNameText;
+        [SerializeField] private Text _currentStageText;
 
         [Header("Screens")] [SerializeField] private FailureScreenController _failureScreen;
         [SerializeField] private ResultsScreenController _resultsScreen;
@@ -51,6 +52,8 @@ namespace TrainingSystem.Scripts.UI.Scene
                 _objectNameText.text =
                     TrainingPreferences.DisplayedObjectNames.GetNameByKey(currentSelectedObject.Entity.Key);
             }
+
+            _currentStageText.text = _interactionService.ActiveStageName;
         }
 
         private void ScenarioCompletedHandler() => ShowResultsScreen();

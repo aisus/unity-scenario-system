@@ -12,6 +12,8 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
     /// <inheritdoc cref="IScenarioService" />
     public class ScenarioService : IScenarioService
     {
+        public string ActiveStageName => _currentStage?.Name;
+
         private TrainingScenario _scenario;
         private Queue<TrainingScenario.Stage> _stagesQueue;
         private TrainingScenario.Stage _currentStage;

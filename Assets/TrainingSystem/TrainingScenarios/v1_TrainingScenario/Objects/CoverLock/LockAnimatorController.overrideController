@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LockAnimatorController
+  m_Controller: {fileID: 9100000, guid: 45ee4899c571eb143b00898a85bc2a4a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 279a22ae126cb194395791b052ce2ab7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cbb8cee76b50483428e77a35171b6d71, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 787819e5f9ed0134fa2f222bd2341853, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e3920abb95335a144b2db7f094a7dc91, type: 2}

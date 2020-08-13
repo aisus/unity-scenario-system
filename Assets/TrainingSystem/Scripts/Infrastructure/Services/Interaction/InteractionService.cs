@@ -13,6 +13,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
     /// <inheritdoc />
     public class InteractionService : IInteractionService
     {
+        public string ActiveStageName => _scenarioService.ActiveStageName;
         public Action<InteractiveObjectEntity> OnActionPerformed { get; set; }
         public Action<InteractiveObjectEntity> OnActionFailed { get; set; }
         public Action<InteractiveObjectEntity> OnActionSucceed { get; set; }

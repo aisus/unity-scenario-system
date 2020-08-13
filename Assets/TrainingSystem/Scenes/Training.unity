@@ -421,6 +421,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7921314984102203848, guid: 63bd35f138b6ef947adb032171cf803d,
+        type: 3}
+      propertyPath: _defaultTrainingScenario
+      value: 
+      objectReference: {fileID: 11400000, guid: d5bc7397e2fefff45bbeae2ccb04607f,
+        type: 2}
+    - target: {fileID: 7921314984102203848, guid: 63bd35f138b6ef947adb032171cf803d,
+        type: 3}
+      propertyPath: _defaultDisplayedObjectNames
+      value: 
+      objectReference: {fileID: 11400000, guid: 958979e92f887c34eaf3e0659809afa9,
+        type: 2}
+    - target: {fileID: 7921314984102203848, guid: 63bd35f138b6ef947adb032171cf803d,
+        type: 3}
+      propertyPath: _defaultTrainingSetupPrefab
+      value: 
+      objectReference: {fileID: 1068048451237156258, guid: 94712ceb2f816ce4d8115cde9b365f8b,
+        type: 3}
     - target: {fileID: 7921314984102203849, guid: 63bd35f138b6ef947adb032171cf803d,
         type: 3}
       propertyPath: m_Name

@@ -10,6 +10,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
     /// </summary>
     public interface IScenarioService : ISceneService
     {
+        string ActiveStageName { get; }
         string[] GetObjectsToEnableOnCurrentStage();
         string[] GetObjectsToDisableOnCurrentStage();
         bool IsScenarioCompleted();
