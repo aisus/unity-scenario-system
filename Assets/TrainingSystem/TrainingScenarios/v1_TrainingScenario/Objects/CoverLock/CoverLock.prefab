@@ -50,7 +50,8 @@ MonoBehaviour:
   _entity:
     _key: CoverLock
     _type: 0
-    _state: 1
+    _state: 0
+    _interactionEnabled: 1
 --- !u!95 &238710280045135481
 Animator:
   serializedVersion: 3

@@ -50,7 +50,8 @@ MonoBehaviour:
   _entity:
     _key: FuseLock1
     _type: 0
-    _state: 1
+    _state: 0
+    _interactionEnabled: 0
 --- !u!95 &5031324629783258139
 Animator:
   serializedVersion: 3

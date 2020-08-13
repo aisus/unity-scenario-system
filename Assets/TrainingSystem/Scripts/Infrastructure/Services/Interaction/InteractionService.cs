@@ -27,7 +27,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         public InteractionService()
         {
             _interactiveBehaviours = new List<InteractiveBehaviour>();
-            _scenarioService = ServiceLocator.Current.ResolveDependency<IScenarioService>();
+            _scenarioService = new ScenarioService(this);
         }
 
         /// <inheritdoc />
@@ -45,7 +45,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
         {
             Logger.Log($"ACTION {behaviour.Entity.Key}", LogType.Log);
 
-            if (behaviour.Entity.State != InteractiveObjectState.Disabled)
+            if (behaviour.Entity.InteractionEnabled)
                 behaviour.UpdateState();    
             
             OnActionPerformed?.Invoke(behaviour.Entity);

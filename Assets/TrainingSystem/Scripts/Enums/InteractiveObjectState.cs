@@ -6,11 +6,6 @@
     public enum InteractiveObjectState
     {
         /// <summary>
-        /// Object is disabled - no action can be performed
-        /// </summary>
-        Disabled, 
-        
-        /// <summary>
         /// Object is inactive - action can be performed
         /// (e.g. switched off button)
         /// </summary>

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Enums;
-using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
 using TrainingSystem.Scripts.Model;
 
@@ -17,15 +15,15 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
         private TrainingScenario _scenario;
         private Queue<TrainingScenario.Stage> _stagesQueue;
         private TrainingScenario.Stage _currentStage;
-        private Lazy<IInteractionService> _interactionService;
+        private IInteractionService _interactionService;
 
-        public ScenarioService()
+        public ScenarioService(IInteractionService interactionService)
         {
-            _interactionService =
-                new Lazy<IInteractionService>(() => ServiceLocator.Current.ResolveDependency<IInteractionService>());
+            _interactionService = interactionService;
             _scenario = TrainingPreferences.TrainingScenario;
             _stagesQueue = new Queue<TrainingScenario.Stage>(_scenario.Stages);
             _currentStage = _stagesQueue.Dequeue();
+            UpdateObjectStates();
         }
 
         public string[] GetObjectsToEnableOnCurrentStage() => _currentStage.EnableObjectsWhenEntered;
@@ -45,8 +43,26 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             {
                 _currentStage = _stagesQueue.Dequeue();
             } while (AreAllStageConditionsSatisfied());
+            UpdateObjectStates();
 
             return ScenarioActionResult.OkAndNextStage;
+        }
+
+        private void UpdateObjectStates()
+        {
+            if (_currentStage.DisableObjectsWhenEntered.Any())
+            {
+                _interactionService.InteractiveBehaviours.Where(x =>
+                        _currentStage.DisableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
+                    .ForEach(x => x.Entity.InteractionEnabled = false);
+            }
+            
+            if (_currentStage.EnableObjectsWhenEntered.Any())
+            {
+                _interactionService.InteractiveBehaviours.Where(x =>
+                        _currentStage.EnableObjectsWhenEntered.Contains(x.Entity.Key)).ToList()
+                    .ForEach(x => x.Entity.InteractionEnabled = true);
+            }
         }
 
         private bool IsActionAllowed(InteractiveObjectEntity entity) =>
@@ -54,7 +70,7 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
 
         private bool AreAllStageConditionsSatisfied()
         {
-            var interactiveEntities = _interactionService.Value.InteractiveBehaviours.Select(x => x.Entity).ToList();
+            var interactiveEntities = _interactionService.InteractiveBehaviours.Select(x => x.Entity).ToList();
 
             foreach (var condition in _currentStage.CompletionConditions)
             {
@@ -73,11 +89,6 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Scenarios
             var isSatisfied = entity.State == condition.RequiredState;
             condition.IsSatisfied = isSatisfied;
             return isSatisfied;
-        }
-
-        /// <inheritdoc />
-        public void OnSceneExit()
-        {
         }
     }
 }
