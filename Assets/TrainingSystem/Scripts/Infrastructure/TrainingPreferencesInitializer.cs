@@ -16,6 +16,10 @@ namespace TrainingSystem.Scripts.Infrastructure
         [SerializeField] private string                _trainingSceneName;
         [SerializeField] private string                _mainMenuSceneName;
 
+        /// <summary>
+        /// Set global preferences to current inspector values
+        /// </summary>
+        /// <param name="scenario"></param>
         public void SetupPreferences(ScenarioPreferences scenario)
         {
             TrainingPreferences.Name                 = scenario.Name;

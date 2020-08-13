@@ -122,18 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &534141622 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 534141622, guid: 5e9e851c0e142814dac026a256ba2ac0,
-    type: 3}
-  m_PrefabInstance: {fileID: 587327507}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c4c810cb8d4421afa68a6f49b18f3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &587327507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,11 +133,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSController
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000,
-        type: 0}
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -193,14 +176,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8200000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
-      propertyPath: m_Volume
-      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
@@ -429,24 +404,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7921314984102203848, guid: 63bd35f138b6ef947adb032171cf803d,
-        type: 3}
-      propertyPath: _defaultTrainingScenario
-      value: 
-      objectReference: {fileID: 11400000, guid: d5bc7397e2fefff45bbeae2ccb04607f,
-        type: 2}
-    - target: {fileID: 7921314984102203848, guid: 63bd35f138b6ef947adb032171cf803d,
-        type: 3}
-      propertyPath: _defaultDisplayedObjectNames
-      value: 
-      objectReference: {fileID: 11400000, guid: 958979e92f887c34eaf3e0659809afa9,
-        type: 2}
-    - target: {fileID: 7921314984102203848, guid: 63bd35f138b6ef947adb032171cf803d,
-        type: 3}
-      propertyPath: _defaultTrainingSetupPrefab
-      value: 
-      objectReference: {fileID: 1068048451237156258, guid: 94712ceb2f816ce4d8115cde9b365f8b,
-        type: 3}
     - target: {fileID: 7921314984102203849, guid: 63bd35f138b6ef947adb032171cf803d,
         type: 3}
       propertyPath: m_Name
@@ -621,11 +578,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8964343557219466232, guid: 62c5036c2fe4996418dc4127647aa049,
-        type: 3}
-      propertyPath: _selector
-      value: 
-      objectReference: {fileID: 534141622}
     - target: {fileID: 8964343557219466233, guid: 62c5036c2fe4996418dc4127647aa049,
         type: 3}
       propertyPath: m_Name

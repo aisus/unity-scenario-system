@@ -21,7 +21,7 @@ namespace TrainingSystem.Scripts.Infrastructure
 
         private void Awake()
         {
-            // Register default preferences, if scene is played in editor
+            // Register default preferences, if scene is played in editor without main menu
             if (Application.isEditor)
             {
                 if (!TrainingPreferences.TrainingScenario)
