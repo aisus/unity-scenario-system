@@ -1,0 +1,9 @@
+﻿using TrainingSystem.Scripts.Enums;
+
+namespace TrainingSystem.Scripts.Model
+{
+    public class InteractiveEntity
+    {
+        public InteractiveObjectState State;
+    }
+}
