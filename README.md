@@ -3,6 +3,8 @@
 Прототип интерактивного тренажера по работе с электронными устройствами.
 Реализован на Unity 2019.4.8f1
 
+[Скачать сборку для Windows x64](https://github.com/aisus/training-system/releases/tag/v1.0)
+
 ![alt text](/readme-images/TitleImage.png "TitleImage")
 
 ## Принципы работы
@@ -49,6 +51,9 @@
 Выделение границ объектов при наведении камеры реализовано шейдерами [UltimateOutline](https://github.com/Shrimpey/UltimateOutline).
 
 Сценарии действий и списки названий объектов настраиваются как ScriptableObject ассеты.
+
+Все ассеты и ресурсы сценариев хранятся в [__\Assets\TrainingSystem\TrainingScenarios__](https://github.com/aisus/training-system/tree/master/Assets/TrainingSystem/TrainingScenarios)
+
 
 
 ## Создание интерактивных объектов и сценариев
