@@ -42,7 +42,8 @@ MonoBehaviour:
     _enableObjectsWhenEntered:
     - FuseLock1
     - FuseLock2
-    _disableObjectsWhenEntered: []
+    _disableObjectsWhenEntered:
+    - FuseHandle
     _completionConditions:
     - _objectKey: FuseLock1
       _requiredState: 1

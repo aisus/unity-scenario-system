@@ -98,7 +98,8 @@ namespace TrainingSystem.Scripts.Infrastructure.Services.Interaction
                     throw new ArgumentOutOfRangeException();
             }
 
-            return result != ScenarioActionResult.ActionNotAllowed;
+            // Object, if enabled, can be activated anyway, even with scenario conditions violation  
+            return entity.InteractionEnabled;
         }
 
         /// <inheritdoc />

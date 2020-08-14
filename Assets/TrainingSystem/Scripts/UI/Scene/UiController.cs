@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using TrainingSystem.Scripts.Configuration;
 using TrainingSystem.Scripts.Infrastructure.Services.DI;
 using TrainingSystem.Scripts.Infrastructure.Services.Interaction;
@@ -19,6 +20,8 @@ namespace TrainingSystem.Scripts.UI.Scene
     {
         [SerializeField] private TextMeshProUGUI _objectNameText;
         [SerializeField] private TextMeshProUGUI _currentStageText;
+        [SerializeField] private TextMeshProUGUI _actionFailedText;
+        [SerializeField] private float           _actionFailedDisplayDuration;
 
         [Header("Screens")] [SerializeField] private FailureScreenController _failureScreen;
         [SerializeField]                     private ResultsScreenController _resultsScreen;
@@ -35,6 +38,8 @@ namespace TrainingSystem.Scripts.UI.Scene
         /// To display selected object name
         /// </summary>
         private InteractiveObjectsSelector _interactiveObjectsSelector;
+
+        private Coroutine _actionFailedTextDispayCoroutine;
 
         private void Start()
         {
@@ -81,6 +86,12 @@ namespace TrainingSystem.Scripts.UI.Scene
         private void ActionFailedHandler(InteractiveObjectEntity entity)
         {
             if (_statisticsService.Statistics.FailedActionsCount <= 1) ShowFirstFailureScreen(true);
+            if (_actionFailedTextDispayCoroutine != null)
+            {
+                StopCoroutine(_actionFailedTextDispayCoroutine);
+            }
+
+            _actionFailedTextDispayCoroutine = StartCoroutine(ShowActionFailedMessage(_actionFailedDisplayDuration));
         }
 
         private void ShowFirstFailureScreen(bool param)
@@ -99,6 +110,14 @@ namespace TrainingSystem.Scripts.UI.Scene
             Logger.Log(
                 $"Completed in {_statisticsService.Statistics.TimeInSeconds}, success rate {_statisticsService.Statistics.SuccessRate}",
                 LogType.Log);
+        }
+
+        private IEnumerator ShowActionFailedMessage(float duration)
+        {
+            _actionFailedText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(duration);
+            _actionFailedText.gameObject.SetActive(false);
+            _actionFailedTextDispayCoroutine = null;
         }
     }
 }

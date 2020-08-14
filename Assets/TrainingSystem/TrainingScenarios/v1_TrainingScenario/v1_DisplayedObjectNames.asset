@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: v1_DisplayedObjectNames
   m_EditorClassIdentifier: 
   _data:
-  - _objectKey: DeviceSwitch
+  - _key: DeviceSwitch
     _displayedName: "\u0412\u044B\u043A\u043B\u044E\u0447\u0430\u0442\u0435\u043B\u044C
       \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0430"
-  - _objectKey: CoverLock
+  - _key: CoverLock
     _displayedName: "\u0417\u0430\u0434\u0432\u0438\u0436\u043A\u0430 \u043A\u0440\u044B\u0448\u043A\u0438
       \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0430"
-  - _objectKey: Cover
+  - _key: Cover
     _displayedName: "\u041A\u0440\u044B\u0448\u043A\u0430 \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0430"
-  - _objectKey: FuseLock1
+  - _key: FuseLock1
     _displayedName: "\u0417\u0430\u0434\u0432\u0438\u0436\u043A\u0430 \u043F\u0440\u0435\u0434\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u044F"
-  - _objectKey: FuseLock2
+  - _key: FuseLock2
     _displayedName: "\u0417\u0430\u0434\u0432\u0438\u0436\u043A\u0430 \u043F\u0440\u0435\u0434\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u044F"
-  - _objectKey: FuseHandle
+  - _key: FuseHandle
     _displayedName: "\u0414\u0435\u0440\u0436\u0430\u0442\u0435\u043B\u044C \u043F\u0440\u0435\u0434\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u044F"
-  - _objectKey: FuseBroken
+  - _key: FuseBroken
     _displayedName: "\u0421\u043B\u043E\u043C\u0430\u043D\u044B\u0439 \u043F\u0440\u0435\u0434\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u044C"
-  - _objectKey: FuseNew
+  - _key: FuseNew
     _displayedName: "\u041D\u043E\u0432\u044B\u0439 \u043F\u0440\u0435\u0434\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u0435\u043B\u044C"
